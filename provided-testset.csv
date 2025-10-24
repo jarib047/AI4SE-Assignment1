@@ -1,0 +1,4010 @@
+id,input,is_correct,expected,predicted,score
+1,"def register_component_producer(self, component_id: str, atom_name: str):
+        
+        logger.info(f""[DAG] Registering component producer {component_id=} {atom_name=}"")
+        if <mask_if>:
+            self._component_producers[component_id] = atom_name
+            if self._current_atom:
+                logger.info(f""[DAG] Component registered while atom was active self._current_atom={self._current_atom}"")
+        else:
+            logger.warning(f""[DAG] Skipping producer registration for unknown atom {atom_name=}"")",false,atom_name in self.atoms,"not isinstance(value, str) and (not isinstance_name in _is",18
+4,"def _save_ontology_to_db(self, ontology: ""Ontology"") -> None:  # type: ignore[no-any-unimported]
+        
+        if <mask_if>:
+            raise ValueError(f""Knowledge graph {self.name} is already created."")
+        graph = self.__get_ontology_storage_graph()
+        ontology.save_to_graph(graph)",false,self.ontology_table_name in self.falkordb.list_graphs(),"not isinstance(value, str) and (not isinstance_name in _is",18
+5,"def _build_merge_function(self):
+        
+
+        def merge_fn(ctrl_msg: IngestControlMessage):
+            do_trace_tagging = ctrl_msg.get_metadata(""config::add_trace_tagging"") is True
+            if <mask_if>:
+                ts_exit = datetime.now()
+                ctrl_msg.set_timestamp(f""trace::exit::{self._task_desc}"", ts_exit)
+                ctrl_msg.set_timestamp(""latency::ts_send"", ts_exit)
+            return ctrl_msg
+
+        return merge_fn",false,do_trace_tagging,not os.path.exists(path) and (not isinstance(path.,0
+6,"def filter_paths(openapi_schema: Dict[str, Any]) -> Dict[str, Any]:
+    
+    if <mask_if>:
+        return openapi_schema
+
+    filtered_paths = {}
+    for path, path_item in openapi_schema[""paths""].items():
+        include_path = False
+        filtered_operations = {}
+
+        for method, operation in path_item.items():
+            if method.lower() in [""get"", ""post"", ""put"", ""delete"", ""patch""] and is_included_endpoint(
+                path, method
+            ):
+                filtered_operations[method] = operation
+                include_path = True
+
+        if include_path:
+            filtered_paths[path] = filtered_operations
+
+    openapi_schema[""paths""] = filtered_paths
+    return openapi_schema",false,"""paths"" not in openapi_schema","not isinstance(value, str) and (not isinstance_name in _is",33
+7,"def _handle_task_completion(self, task: asyncio.Task) -> None:
+        
+        task_id = getattr(task, ""task_id"", ""unknown"")
+        self.pending_tasks.discard(task)
+
+        if <mask_if>:
+            logger.warning(f""🚫 WORKER_CANCELLED [{task_id}] Task was cancelled"")
+        elif task.exception() is not None:
+            logger.error(
+                f""💥 WORKER_EXCEPTION [{task_id}] Task completed with exception: {task.exception()}""
+            )
+        else:
+            logger.info(f""🏁 WORKER_CLEANUP [{task_id}] Task cleaned up successfully"")",false,task.cancelled(),not os.path.exists(path) and (not is not None),0
+8,"def _get_mime_type(self) -> str:
+        
+        if <mask_if>:
+            return f""image/{self._format.lower()}""
+
+        if self.path:
+            suffix = self.path.suffix.lower()
+            return {
+                "".png"": ""image/png"",
+                "".jpg"": ""image/jpeg"",
+                "".jpeg"": ""image/jpeg"",
+                "".gif"": ""image/gif"",
+                "".webp"": ""image/webp"",
+            }.get(suffix, ""application/octet-stream"")
+        return ""image/png""",false,self._format,not os.path.exists(path) and (not 'path.path,0
+10,"def check_and_install_dependencies():
+    
+    required_packages = [
+        ""gunicorn"",
+        ""tiktoken"",
+        ""psutil"",
+        # Add other required packages here
+    ]
+
+    for package in required_packages:
+        if <mask_if>:
+            print(f""Installing {package}..."")
+            pm.install(package)
+            print(f""{package} installed successfully"")",false,not pm.is_installed(package),"not isinstance(value, str) and (not isinstance_name in _is",20
+11,"def get(cls, name: str, raise_on_missing: bool = True) -> Optional[T]:
+        
+
+        matches = [registered for registered in cls._get_storage() if re.match(registered, name)]
+
+        if <mask_if>:
+            raise ValueError(f""Multiple taggers match {name}: {', '.join(matches)}"")
+
+        elif len(matches) == 0:
+            if raise_on_missing:
+                tagger_names = "", "".join([tn for tn, _ in cls.items()])
+                raise ValueError(f""Unknown tagger {name}; available taggers: {tagger_names}"")
+            return None
+
+        else:
+            name = matches[0]
+            t, _ = cls._get_storage()[name]
+            return t",false,len(matches) > 1,"not isinstance(value, str) and (not isinstance_name in _is",0
+12,"def get_single_param_type_from_schema(param_schema: Dict[str, Any]) -> str:
+    
+    if <mask_if>:
+        types = {schema.get(""type"") for schema in param_schema[""anyOf""] if schema.get(""type"")}
+        if ""null"" in types:
+            types.remove(""null"")
+        if types:
+            return next(iter(types))
+        return ""string""
+    return param_schema.get(""type"", ""string"")",false,"""anyOf"" in param_schema","not isinstance(value, str) and (not isinstance_name in _is",18
+13,"def start(self):
+        
+        try:
+            self.reset_trace()
+            self.current_trace[""start_time""] = datetime.now()
+            self._active = True
+            self._monkey_patch()
+
+            if <mask_if>:
+                loop = asyncio.get_event_loop()
+                self._save_task = loop.create_task(self._periodic_save())
+
+            logger.info(""Tracing started"")
+        except Exception as e:
+            logger.error(f""Error starting tracer: {e}"")
+            self.on_error(e, context=""start"")
+            raise",false,self.save_interval,not os.path.exists(path) and (not isinstance(path.,0
+14,"def generate_audio_from_phonemes(phonemes: str, voice: str = ""af_bella""):
+    
+    response = requests.post(
+        json={""phonemes"": phonemes, ""voice"": voice},
+        headers={""Accept"": ""audio/wav""}
+    )
+    if <mask_if>:
+        print(f""Error: {response.text}"")
+        return None
+    return response.content",false,response.status_code != 200,"not isinstance(value, str) and (not isinstance_name in _is",0
+15,"def _build_conversation_context(self) -> str:
+        
+        context_parts = []
+
+        # Include recent messages (last 5 for now)
+        recent_messages = (
+            self.state.messages[-5:]
+            if len(self.state.messages) > 5
+            else self.state.messages
+        )
+
+        for msg in recent_messages:
+            if <mask_if>:  # Skip system message in context
+                role_label = ""User"" if msg.role == ""user"" else ""Assistant""
+                context_parts.append(f""{role_label}: {msg.content}"")
+
+        return (
+            ""\n"".join(context_parts)
+            if context_parts
+            else ""This is the start of our conversation.""
+        )",false,"msg.role != ""system""",not os.path.exists(path) and (not 'path.path,0
+16,"def to_api_params(self) -> Dict[str, JsonValue]:
+        
+        params: Dict[str, JsonValue] = {
+            ""includeResolvedCases"": cast(JsonValue, self.include_resolved_cases),
+            ""includeCommunications"": cast(JsonValue, self.include_communications),
+            ""language"": cast(JsonValue, self.language),
+        }
+
+        if <mask_if>:
+            params[""caseIdList""] = cast(JsonValue, self.case_id_list)
+        if self.display_id:
+            params[""displayId""] = cast(JsonValue, self.display_id)
+        if self.after_time:
+            params[""afterTime""] = cast(JsonValue, self.after_time)
+        if self.before_time:
+            params[""beforeTime""] = cast(JsonValue, self.before_time)
+        if self.max_results:
+            params[""maxResults""] = cast(JsonValue, self.max_results)
+        if self.next_token:
+            params[""nextToken""] = cast(JsonValue, self.next_token)
+
+        return params",false,self.case_id_list,"not isinstance(value, str) and (not isinstance_name in _get",0
+17,"def interpreter_feedback(self, output: str) -> str:
+        
+        if <mask_if>:
+            raise ValueError(""No output to interpret."")
+        return f",false,not output,"not isinstance(value, str) and (not isinstance_name in _get",20
+21,"def auto_discover_processors():
+    
+    # get processors directory path
+    processors_path = Path(__file__).parent.parent / ""processors""
+
+    # iterate over all subdirectories in processors directory
+    for _, name, _ in pkgutil.iter_modules([str(processors_path)]):
+        # if it is a directory and contains processor.py
+        processor_file = processors_path / name / ""processor.py""
+        if <mask_if>:
+            module_path = f""lpm_kernel.file_data.processors.{name}.processor""
+            try:
+                importlib.import_module(module_path)
+            except ImportError as e:
+                print(f""Failed to load processor module {module_path}: {e}"")",false,processor_file.exists(),"not isinstance(value, str) and (not isinstance_name in _is",0
+24,"def download_youtube_video(video_url, output_path):
+    
+    # video_url, output_path = info
+    try:
+        if <mask_if>:
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        # download command
+        command = ['yt-dlp', '-f', 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]', '--merge-output-format',
+               'mp4', '--output', output_path , video_url]
+        # subprocess.run
+        result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8')
+
+        if result.returncode == 0:
+            print('Download {:s} successfully!'.format(video_url))
+        else:
+            print(""Fail to download {:s}, error info:\n{:s}"".format(video_url, result.stderr))
+    except Exception as e:
+        print(f""error: {e}"")",false,not os.path.exists(os.path.dirname(output_path)),"not isinstance(value, str) and (not isinstance_name in _is",20
+25,"def sub_device_state(
+        self, did: str, handler: Callable[[str, MIoTDeviceState, Any], None],
+        handler_ctx: Any = None
+    ) -> bool:
+        
+        if <mask_if>:
+            raise MIoTClientError(f'did not exist, {did}')
+        self._sub_device_state[did] = MipsDeviceState(
+            did=did, handler=handler, handler_ctx=handler_ctx)
+        _LOGGER.debug('client sub device state, %s', did)
+        return True",false,did not in self._device_list_cache,"not isinstance(value, str) and (not isinstance_name in _is",33
+26,"def generate_audio_from_phonemes(phonemes: str, voice: str = ""af_bella"") -> Optional[bytes]:
+    
+    response = requests.post(
+        json={""phonemes"": phonemes, ""voice"": voice},
+        headers={""Accept"": ""audio/wav""}
+    )
+    
+    print(f""Response status: {response.status_code}"")
+    print(f""Response headers: {dict(response.headers)}"")
+    print(f""Response content type: {response.headers.get('Content-Type')}"")
+    print(f""Response length: {len(response.content)} bytes"")
+    
+    if <mask_if>:
+        print(f""Error response: {response.text}"")
+        return None
+        
+    if not response.content:
+        print(""Error: Empty response content"")
+        return None
+        
+    return response.content",false,response.status_code != 200,"not isinstance(value, str) and (not isinstance_name in _is",0
+28,"def __post_init__(
+        self,
+    ) -> ""BaseSecurity"":  # dataclasses uses __post_init__ instead of model_validator
+        
+        valid_in_values = {
+            ""apiKey"": [""header"", ""query"", ""cookie""],
+            ""http"": [""bearer"", ""basic""],
+            ""oauth2"": [""bearer""],
+            ""openIdConnect"": [""bearer""],
+            ""mutualTLS"": [""tls""],
+            ""unsupported"": [""unsupported""],
+        }
+        if <mask_if>:
+            raise ValueError(f""Invalid in_value '{self.in_value}' for type '{self.type}'"")
+        return self",false,self.in_value not in valid_in_values[self.type],"not isinstance(value, str) and (not isinstance_name in _is",33
+31,"def __call__(
+      self, query_sequence: str, chain_polymer_type: str
+  ) -> tuple[msa.Msa, MsaErrors]:
+    
+    if <mask_if>:
+      raise ValueError(
+          f'EmptyMsaProvider of type {self._chain_polymer_type} called with '
+          f'sequence of {chain_polymer_type=}, {query_sequence=}.'
+      )
+    return (
+        msa.Msa.from_empty(
+            query_sequence=query_sequence,
+            chain_poly_type=self._chain_polymer_type,
+        ),
+        (),
+    )",false,chain_polymer_type != self._chain_polymer_type,"not isinstance(value, str) and (not isinstance_name in _is",0
+32,"def interpreter_feedback(self, output: str) -> str:
+        
+        if <mask_if>:
+            return f""Web search failed: {output}""
+        return f""Web search result:\n{output}""",false,self.execution_failure_check(output),"not isinstance(value, str) and (not isinstance_name in _get",0
+34,"def initialize_cache(self, num_gpu_blocks: int, num_cpu_blocks: int) -> None:
+        
+
+        # NOTE: We log here to avoid multiple logs when number of workers is
+        # greater than one. We could log in the engine, but not all executors
+        # have GPUs.
+        logger.info(""# GPU blocks: %d, # CPU blocks: %d"", num_gpu_blocks, num_cpu_blocks)
+
+        self.cache_config.num_gpu_blocks = num_gpu_blocks
+        self.cache_config.num_cpu_blocks = num_cpu_blocks
+
+        if <mask_if>:
+            print(f""before init cache memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB"")
+        self.worker.initialize_cache(num_gpu_blocks=num_gpu_blocks, num_cpu_blocks=num_cpu_blocks)
+        if torch.distributed.get_rank() == 0:
+            print(f""after init cache memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB"")",false,torch.distributed.get_rank() == 0,"not isinstance(value, str) and (not is None)) == 'name",17
+38,"def validate_dimensions(dimension: Union[int, float], attribute_name: str) -> int:
+    
+    dimension = int(dimension)
+    if <mask_if>:
+        raise ValueError(f""The '{attribute_name}' must be a multiple of 64."")
+    return dimension",false,dimension <= 0 or dimension % 64 != 0,"not isinstance(value, str) and (not isinstance_name in _is",0
+40,"def _format_comment_body(self, comment: GitHubPRComment) -> str:
+        
+        body = comment.comment_body
+
+        # Add code snippet reference if provided
+        if <mask_if>:
+            body += f""\n\n```\n{comment.code_snippet}\n```""
+
+        # Add suggestion if provided
+        if comment.suggestion:
+            body += f""\n\n```suggestion\n{comment.suggestion}\n```""
+
+        return body",false,comment.code_snippet,not os.path.exists(path) and (not isinstance(path.,0
+41,"def _save_credentials(self) -> None:
+        
+        if <mask_if>:
+            logger.error(f""Attempted to save null credentials for user {self.user_morphik_id}."")
+            return
+
+        creds_path = self._get_user_credentials_path()
+        try:
+            with open(creds_path, ""w"") as creds_file:
+                json.dump(self.credentials, creds_file)
+            logger.info(f""Successfully saved Zotero credentials for user {self.user_morphik_id}"")
+        except Exception as e:
+            logger.error(f""Failed to save Zotero credentials for user {self.user_morphik_id}: {e}"")",false,not self.credentials,not os.path.exists(path) and (not 'path.path,29
+42,"def extract_json_from_response(content: str) -> dict | None:
+    
+    try:
+        json_start = content.find(""```json"")
+        if <mask_if>:
+            json_text = content[json_start + 7 :]  # Skip past ```json
+            json_end = json_text.find(""```"")
+            if json_end != -1:
+                json_text = json_text[:json_end].strip()
+                return json.loads(json_text)
+    except Exception as e:
+        print(f""Error extracting JSON from response: {e}"")
+    return None",false,json_start != -1,"not isinstance(value, str) and (not isinstance_name in _is",0
+47,"def normalize_pandas(obj):
+    
+    if <mask_if>:
+        return obj.tolist()
+    elif isinstance(obj, pd.DataFrame):
+        return obj.to_dict(""records"")
+    elif isinstance(obj, dict):
+        return {k: normalize_pandas(v) for k, v in obj.items()}
+    elif isinstance(obj, (list, tuple)):
+        return [normalize_pandas(item) for item in obj]
+    return obj",false,"isinstance(obj, pd.Series)","not isinstance(value, str) and (not isinstance_name in _is",0
+49,"def get_client_and_project():
+        
+        is_dev_mode = os.getenv(""isDevelopmentMode"", ""enabled"") == ""enabled""
+        if <mask_if>:
+            return None, None
+
+        project_id = os.environ.get(""GCP_PROJECT"")
+        if not project_id:
+            raise HTTPException(
+                status_code=500, detail=""GCP_PROJECT environment variable is not set""
+            )
+
+        try:
+            client = secretmanager.SecretManagerServiceClient()
+            return client, project_id
+        except Exception as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f""Failed to initialize Secret Manager client: {str(e)}"",
+            )",false,is_dev_mode,"not isinstance(value, str) and (not isinstance_name in _get",0
+52,"def is_fastTrack_eligible(self):
+        
+        if <mask_if>:
+            logger.debug(""Fast track not eligible: context_url present"")
+            return False
+        if (len(self.handler.prev_queries) > 0):
+            logger.debug(f""Fast track not eligible: {len(self.handler.prev_queries)} previous queries present"")
+            return False
+        logger.info(""Query is eligible for fast track"")
+        return True",false,self.handler.context_url != '',"not isinstance(value, str) and (not isinstance_name in _get",0
+56,"def load_server_config(cls) -> Dict[str, MCPServerConfig]:
+        
+        config_path = PROJECT_ROOT / ""config"" / ""mcp.json""
+
+        try:
+            config_file = config_path if config_path.exists() else None
+            if <mask_if>:
+                return {}
+
+            with config_file.open() as f:
+                data = json.load(f)
+                servers = {}
+
+                for server_id, server_config in data.get(""mcpServers"", {}).items():
+                    servers[server_id] = MCPServerConfig(
+                        type=server_config[""type""],
+                        url=server_config.get(""url""),
+                        command=server_config.get(""command""),
+                        args=server_config.get(""args"", []),
+                    )
+                return servers
+        except Exception as e:
+            raise ValueError(f""Failed to load MCP server config: {e}"")",false,not config_file,"not isinstance(value, str) and (not isinstance_name in _is",20
+59,"def state(self, value: JobStateEnum) -> None:
+        
+        if <mask_if>:
+            logger.error(f""Attempt to change state from {self._state.name} to {value.name} denied."")
+            raise ValueError(f""Cannot change state from {self._state.name} to {value.name}."")
+        if value.value < self._state.value:
+            logger.error(f""Invalid state transition attempt from {self._state.name} to {value.name}."")
+            raise ValueError(f""State can only transition forward, from {self._state.name} to {value.name} not allowed."")
+        self._state = value",false,self._state in _TERMINAL_STATES,"not isinstance(value, str) and (not is None)) == 'name",0
+60,"def _get_hash(identifier: str) -> str:
+        
+        identifier = identifier.lower().strip()
+        if <mask_if>:
+            # Hash functions have to take bytes
+            identifier = identifier.encode('utf-8')
+
+        hash_value = sha256(identifier).hexdigest()
+        return f""{hash_value}_{len(identifier)}""",false,"isinstance(identifier, str)","not isinstance(value, str) and (not isinstance_name in _get",20
+62,"def is_valid_tool_call_item(call_item: dict) -> bool:
+    
+    if <mask_if>:
+        return False
+
+    if set(call_item.keys()) - {""name"", ""arguments""}:  # noqa: SIM103
+        return False
+
+    return True",false,"""name"" not in call_item or not isinstance(call_item[""name""], str)","not isinstance(value, str) and (not isinstance_name in _get",38
+64,"def _handle_content(self, content):
+        
+        if <mask_if>:
+            text = content.get(""text"", """")
+            if text == ""<DONE>"":
+                return
+            logger.info(f""Assistant: {text}"")",false,"content.get(""type"") == ""text""",not os.path.exists(path) and (not isinstance(path.,0
+65,"def add_prompt(self, prompt: Prompt) -> Prompt:
+        
+        logger.debug(f""Adding prompt: {prompt.name}"")
+        existing = self._prompts.get(prompt.name)
+        if <mask_if>:
+            if self.warn_on_duplicate_prompts:
+                logger.warning(f""Prompt already exists: {prompt.name}"")
+            return existing
+        self._prompts[prompt.name] = prompt
+        return prompt",false,existing,"not isinstance(value, str) and (not isinstance_name in _get",0
+66,"def _create_visualizations(self):
+        
+        if <mask_if>:
+            logger.warning(""Matplotlib not available, skipping visualization creation"")
+            return
+
+        if not self.study or len(self.study.trials) < 2:
+            logger.warning(""Not enough trials to create visualizations"")
+            return
+
+        # Create directory for visualizations
+        viz_dir = os.path.join(self.output_dir, ""visualizations"")
+        os.makedirs(viz_dir, exist_ok=True)
+
+        # Create Optuna visualizations
+        self._create_optuna_visualizations(viz_dir)
+
+        # Create custom visualizations
+        self._create_custom_visualizations(viz_dir)
+
+        logger.info(f""Visualizations saved to {viz_dir}"")",false,not PLOTTING_AVAILABLE,not os.path.exists(path) and (not isinstance(path.,29
+68,"def delete_all_output_files() -> bool:
+    
+    try:
+        for filename in os.listdir(OUTPUTS_DIR):
+            if <mask_if>:
+                file_path = os.path.join(OUTPUTS_DIR, filename)
+                os.remove(file_path)
+        return True
+    except Exception as e:
+        print(f""Error deleting output files: {e}"")
+        return False",false,any(filename.endswith(ext) for ext in AUDIO_FORMATS),"not isinstance(value, str) and (not isinstance_name in _is",15
+73,"def _respect_rate_limit(self):
+        
+        current_time = time.time()
+        time_since_last_request = current_time - self.last_request_time
+
+        if <mask_if>:
+            wait_time = self.delay_between_requests - time_since_last_request
+            logger.info(f""Rate limiting: waiting {wait_time:.2f} seconds"")
+            time.sleep(wait_time)
+
+        self.last_request_time = time.time()",false,time_since_last_request < self.delay_between_requests,"not isinstance(value, str) and (not isinstance_name in [' '",0
+74,"def _cleanup_existing_alembic(self) -> None:
+        
+        # logger.info(""Cleaning up existing Alembic configuration..."")
+
+        # Remove entire alembic directory if it exists
+        if <mask_if>:
+            import shutil
+
+            shutil.rmtree(self.alembic_dir)
+            logger.info(f""Removed alembic directory: {self.alembic_dir}"")
+
+        # Remove alembic.ini if it exists
+        if self.alembic_ini_path.exists():
+            self.alembic_ini_path.unlink()
+            logger.info(""Removed alembic.ini"")",false,self.alembic_dir.exists(),not os.path.exists(path) and (not os._path.,0
+77,"def _format_server_info(self, server_name: str) -> str:
+        
+        server_config = self.server_registry.get_server_config(server_name)
+        server_str = f""Server Name: {server_name}""
+        if <mask_if>:
+            return server_str
+
+        description = server_config.description
+        if description:
+            server_str = f""{server_str}\nDescription: {description}""
+
+        return server_str",false,not server_config,"not isinstance(value, str) and (not is not None)) == '",17
+78,"def format_question(category: str, question: str, answer: str) -> Dict[str, Any]:
+    
+    # Basic sanity checks
+    if <mask_if>:
+        raise ValueError(f""Empty question or answer in {category}"")
+        
+    return {
+        ""id"": f""{category}_{random.getrandbits(32):08x}"",
+        ""category"": category,
+        ""question"": clean_text(question),
+        ""answer"": clean_text(answer),
+        ""metadata"": {
+            ""source"": SOURCES[category][""name""],
+            ""type"": category,
+            ""difficulty"": ""challenging""  # All examples are chosen to be challenging
+        }
+    }",false,not question or not answer,"not isinstance(value, str) and (not isinstance_name in _is",15
+79,"def get_tool(self, key: str) -> Tool:
+        
+        if <mask_if>:
+            return self._tools[key]
+        raise NotFoundError(f""Unknown tool: {key}"")",false,key in self._tools,"not isinstance(value, str) and (not isinstance_name in _is",18
+80,"def stable_serialize(obj: Any) -> Any:
+    
+    if <mask_if>:
+        return {k: stable_serialize(v) for k, v in sorted(obj.items())}
+    elif isinstance(obj, (list, tuple)):
+        return [stable_serialize(x) for x in obj]
+    elif isinstance(obj, (str, int, float, bool, type(None))):
+        return obj
+    else:
+        return str(obj)",false,"isinstance(obj, dict)","not isinstance(value, str) and (not isinstance_name in _is",0
+81,"def register_mcp_tools(self):
+        
+        if <mask_if>:
+            for server_name in self.mcp_client.server_name_to_tools:
+                for tool in self.mcp_client.server_name_to_tools[server_name]:
+                    tool_name = f""mcp.{server_name}.{tool.name}""
+                    self.registry.registry.actions[tool_name] = RegisteredAction(
+                        name=tool_name,
+                        description=tool.description,
+                        function=tool,
+                        param_model=create_tool_param_model(tool),
+                    )
+                    logger.info(f""Add mcp tool: {tool_name}"")
+                logger.debug(
+                    f""Registered {len(self.mcp_client.server_name_to_tools[server_name])} mcp tools for {server_name}"")
+        else:
+            logger.warning(f""MCP client not started."")",false,self.mcp_client,"not isinstance(value, str) and (not isinstance_name in _is",0
+83,"def get_model_config(version: str):
+    
+    if <mask_if>:
+        raise ValueError(f""Unsupported model version '{version}'. Supported versions are: {list(MODEL_CONFIGS.keys())}"")
+    return MODEL_CONFIGS[version]",false,version not in MODEL_CONFIGS,"not isinstance(value, str) and (not isinstance_name in _is",33
+84,"def get_cortex_search_service(cfg: RetrievalProviderConfig) -> Tuple[str,str,str]:
+    
+    if <mask_if>:
+        raise snowflake.ConfigurationError(""Unable to determine Snowflake configuration"")
+    index_name = cfg.index_name
+    if not index_name:
+        raise snowflake.ConfigurationError(""Unable to determine Snowflake Cortex Search Service, is SNOWFLAKE_CORTEX_SEARCH_SERVICE set?"")
+    parts = index_name.split(""."")
+    if len(parts) != 3:
+        raise snowflake.ConfigurationError(f""Invalid SNOWFLAKE_CORTEX_SEARCH_SERVICE, expected format:<database>.<schema>.<service>, got {index_name}"")
+    return (parts[0], parts[1], parts[2])",false,not cfg,"not isinstance(value, str) and (not isinstance_name in _is",20
+86,"def _jsonl_to_csv(self, jsonl_file, csv_file):
+        
+        with open(jsonl_file, 'r', encoding='utf-8') as infile:
+            data = [json.loads(line) for line in infile]
+        
+        if <mask_if>:
+            print(""Empty JSONL file."")
+            return
+        
+        with open(csv_file, 'w', newline='', encoding='utf-8') as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
+        
+        print(f""Converted {jsonl_file} to {csv_file}"")",false,not data,"not isinstance(value, str) and (not isinstance_name in _get",20
+87,"def recursive_mask_values(obj, parent_key=None):
+            
+            if <mask_if>:
+                return {k: recursive_mask_values(v, k) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [recursive_mask_values(item, parent_key) for item in obj]
+            elif isinstance(obj, str):
+                # List of keys that should NOT be masked
+                excluded_keys = {
+                    'start_time', 'end_time', 'name', 'id', 
+                    'hash_id', 'parent_id', 'source_hash_id',
+                    'cost', 'type', 'feedback', 'error', 'ctx','telemetry.sdk.version',
+                    'telemetry.sdk.language','service.name'
+                }
+                # Apply masking only if the key is NOT in the excluded list
+                if parent_key and parent_key.lower() not in excluded_keys:
+                    return masking_func(obj)
+                return obj
+            else:
+                return obj",false,"isinstance(obj, dict)","not isinstance(value, str) and (not isinstance_name in ['.",0
+88,"def deprecated(replacement: str = """"):
+    
+    import functools
+    import warnings
+
+    def decorator(func):
+        qualified_name = _get_qualified_name(func)
+        @functools.wraps(func)
+        def wrapped(*args, **kwargs):
+            msg = f""Warning: API '{qualified_name}' is deprecated.""
+            if <mask_if>:
+                msg += f"" Please use '{replacement}' instead.""
+            warnings.warn(msg, category=DeprecationWarning, stacklevel=2)
+            return func(*args, **kwargs)
+        return wrapped
+    return decorator",false,replacement,"not isinstance(value, str) and (not isinstance_name in ['))",0
+90,"def _format_timestamp(self, timestamp: str) -> str:
+        
+        if <mask_if>:
+            return timestamp
+
+        try:
+            year = timestamp[0:4]
+            month = timestamp[4:6]
+            day = timestamp[6:8]
+            hour = timestamp[8:10]
+            minute = timestamp[10:12]
+            second = timestamp[12:14]
+            return f""{year}-{month}-{day} {hour}:{minute}:{second}""
+        except Exception:
+            return timestamp",false,len(timestamp) < 14,"not isinstance(value, str) and (not isinstance_name in _type",0
+91,"def get_skill_states(skill_category: str) -> Set[str]:
+    
+    if <mask_if>:
+        return _skill_states_cache[skill_category]
+
+    try:
+        # Import the skill category module
+        skill_module = importlib.import_module(f""skills.{skill_category}"")
+
+        # Look for the SkillStates TypedDict class
+        if hasattr(skill_module, ""SkillStates""):
+            skill_states_class = getattr(skill_module, ""SkillStates"")
+            # Get the annotations which contain the state names
+            if hasattr(skill_states_class, ""__annotations__""):
+                states = set(skill_states_class.__annotations__.keys())
+                _skill_states_cache[skill_category] = states
+                return states
+
+        logger.warning(f""Could not find SkillStates for {skill_category}"")
+        return set()
+
+    except ImportError as e:
+        logger.warning(f""Could not import skill category {skill_category}: {e}"")
+        return set()",false,skill_category in _skill_states_cache,"not isinstance(value, str) and (not isinstance_name in _is",18
+92,"def _progress_callback(self, message: str, progress: int, metadata: dict) -> None:
+        
+        logger.info(f""Progress: {progress}% - {message}"")
+        if <mask_if>:
+            self.progress_callback(message, progress, metadata)",false,"hasattr(self, ""progress_callback"")","not isinstance(value, str) and (not is None)) == 'name",0
+93,"def custom_get_evaluation_llm(custom_config=None):
+            
+            if <mask_if>:
+                custom_config = evaluation_config
+
+            print(f""Getting evaluation LLM with config: {custom_config}"")
+            return get_llm(**custom_config)",false,custom_config is None,"not isinstance(value, str) and (not isinstance_name in ['))",0
+94,"def to_dict(self):
+        
+        result = {
+            ""id"": self.id,
+            ""name"": self.name,
+            ""type"": self.type,
+            ""path"": self.path,
+            ""created_at"": self.created_at.isoformat() if self.created_at else None,
+            ""meta_data"": self.meta_data,
+        }
+        if <mask_if>:
+            result[""document_id""] = self.document_id
+        return result",false,self.document_id,not os.path.exists(path) and (not 'path.path,0
+96,"def trace_id_to_uuid(trace_id: str) -> str:
+    
+    trace_id = str(trace.format_trace_id(trace_id))
+    if <mask_if>:
+        raise ValueError(""Trace ID must be a 32-character hexadecimal string"")
+    return f""{trace_id[:8]}-{trace_id[8:12]}-{trace_id[12:16]}-{trace_id[16:20]}-{trace_id[20:]}""",false,len(trace_id) != 32,"not isinstance(value, str) and (not isinstance_name in _is",0
+97,"def _get_endpoint_config(self):
+        
+        endpoint_config = CONFIG.retrieval_endpoints.get(self.endpoint_name)
+        
+        if <mask_if>:
+            error_msg = f""No configuration found for endpoint {self.endpoint_name}""
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # Verify this is an Azure AI Search endpoint
+        if endpoint_config.db_type != ""azure_ai_search"":
+            error_msg = f""Endpoint {self.endpoint_name} is not an Azure AI Search endpoint (type: {endpoint_config.db_type})""
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+            
+        return endpoint_config",false,not endpoint_config,not os.path.exists(path) and (not 'path.path,29
+98,"def save_results(results, output_dir):
+    
+    output_path = Path(output_dir) / ""rich_autoscan_results.json""
+
+    # Convert results to serializable format
+    serializable_results = []
+    for result in results:
+        if <mask_if>:
+            continue
+        serializable_results.append(result)
+
+    with open(output_path, ""w"") as f:
+        json.dump(serializable_results, f, indent=2, default=lambda o: o.value if isinstance(o, Enum) else o)
+
+    print(f""Results saved to {output_path}"")",false,result is None,"not isinstance(value, str) and (not isinstance_name in _is",0
+103,"def __exit__(self, exc_type, exc_value, exc_tb):
+        
+        if <mask_if>:
+            self.end.record()
+            torch.cuda.synchronize()
+            self.time = self.start.elapsed_time(self.end)
+            if self.name is not None:
+                logger.info(f'{self.name} takes {self.time} ms')",false,"os.environ.get('HY3DGEN_DEBUG', '0') == '1'",not os.path.exists(path) and (not isinstance(path.,0
+104,"def create_turn_dir(self) -> None:
+        
+        if <mask_if>:
+            logger.warning(""Cannot create turn directory: run_dir not set"")
+            return
+
+        # Increment turn counter
+        self.turn_count += 1
+
+        # Create turn directory with padded number
+        turn_name = f""turn_{self.turn_count:03d}""
+        self.current_turn_dir = os.path.join(self.run_dir, turn_name)
+        os.makedirs(self.current_turn_dir, exist_ok=True)
+        logger.info(f""Created turn directory: {self.current_turn_dir}"")",false,not self.run_dir,not os.path.exists(path) and (not is not None),22
+105,"def copy_and_update(self, *args, **kwargs):
+        
+        new_info = asdict(self)
+
+        for si in args:
+            assert isinstance(si, StreamInfo)
+            new_info.update({k: v for k, v in asdict(si).items() if v is not None})
+
+        if <mask_if>:
+            new_info.update(kwargs)
+
+        return StreamInfo(**new_info)",false,len(kwargs) > 0,not os.path.exists(path) and (not 'path.path,0
+106,"def write_output(
+    inference_result: model.InferenceResult,
+    output_dir: os.PathLike[str] | str,
+    terms_of_use: str | None = None,
+    name: str | None = None,
+) -> None:
+  
+  processed_result = post_process_inference_result(inference_result)
+
+  prefix = f'{name}_' if name is not None else ''
+
+  with open(os.path.join(output_dir, f'{prefix}model.cif'), 'wb') as f:
+    f.write(processed_result.cif)
+
+  with open(
+      os.path.join(output_dir, f'{prefix}summary_confidences.json'), 'wb'
+  ) as f:
+    f.write(processed_result.structure_confidence_summary_json)
+
+  with open(os.path.join(output_dir, f'{prefix}confidences.json'), 'wb') as f:
+    f.write(processed_result.structure_full_data_json)
+
+  if <mask_if>:
+    with open(os.path.join(output_dir, 'TERMS_OF_USE.md'), 'wt') as f:
+      f.write(terms_of_use)",false,terms_of_use is not None,"not isinstance(value, str) and (not isinstance_name in _is",17
+107,"def xpath_attr_functional_pseudo_element(
+            xpath: OriginalXPathExpr, function: FunctionalPseudoElement
+    ) -> XPathExpr:
+        
+        if <mask_if>:
+            raise ExpressionError(
+                f""Expected a single string or ident for ::attr(), got {function.arguments!r}""
+            )
+        return XPathExpr.from_xpath(xpath, attribute=function.arguments[0].value)",false,"function.argument_types() not in ([""STRING""], [""IDENT""])","not isinstance(value, str) and (not isinstance_name in _is",31
+109,"def initialize_cache(self, num_gpu_blocks: int, num_cpu_blocks: int) -> None:
+        
+
+        # NOTE: We log here to avoid multiple logs when number of workers is
+        # greater than one. We could log in the engine, but not all executors
+        # have GPUs.
+        logger.info(""# GPU blocks: %d, # CPU blocks: %d"", num_gpu_blocks, num_cpu_blocks)
+
+        self.cache_config.num_gpu_blocks = num_gpu_blocks
+        self.cache_config.num_cpu_blocks = num_cpu_blocks
+
+        if <mask_if>:
+            print(
+                f""before init cache memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB""
+            )
+        self.worker.initialize_cache(num_gpu_blocks=num_gpu_blocks, num_cpu_blocks=num_cpu_blocks)
+        if torch.distributed.get_rank() == 0:
+            print(
+                f""after init cache memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB""
+            )",false,torch.distributed.get_rank() == 0,"not isinstance(value, str) and (not is None)) == 'name",17
+112,"def extract_urls_from_jsonl(file_path):
+    
+    urls = set()
+    url_to_data = {}
+    with open(file_path, ""r"", encoding=""utf-8"") as f:
+        for line in f:
+            try:
+                data = json.loads(line.strip())
+                if <mask_if>:
+                    url = data[""url""]
+                    urls.add(url)
+                    # Store minimal context for each URL
+                    url_to_data[url] = {""id"": data.get(""id"", """"), ""type"": data.get(""type"", """"), ""page"": data.get(""page"", """")}
+            except json.JSONDecodeError:
+                print(f""Warning: Could not parse JSON from line in {file_path}"")
+                continue
+    return urls, url_to_data",false,"""url"" in data and data[""url""]","not isinstance(value, str) and (not isinstance_name in _is",31
+114,"def get_port():
+    
+    if <mask_if>:
+        port = int(os.environ['PORT'])
+        print(f""Using PORT from environment variable: {port}"")
+        return port
+    elif 'WEBSITE_SITE_NAME' in os.environ:
+        # Running in Azure App Service
+        print(""Running in Azure App Service, using default port 8000"")
+        return 8000  # Azure will redirect requests to this port
+    else:
+        # Use configured port
+        print(f""Using configured port {CONFIG.port}"")
+        return CONFIG.port",false,'PORT' in os.environ,"not isinstance(value, str) and (not isinstance_name in _is",18
+115,"def parse_rules_file(file_path):
+    
+    pdf_rules = defaultdict(list)
+
+    with open(file_path, ""r"") as f:
+        for line in f:
+            line = line.strip()
+            if <mask_if>:
+                continue
+            try:
+                rule = json.loads(line)
+                if ""pdf"" in rule:
+                    pdf_rules[rule[""pdf""]].append(rule)
+            except json.JSONDecodeError:
+                print(f""Warning: Could not parse line as JSON: {line}"")
+
+    return pdf_rules",false,not line,"not isinstance(value, str) and (not isinstance_name in _is",20
+119,"def recreate_collection(collection_name, vector_size):
+    
+    if <mask_if>:
+        print(f""Dropping existing collection '{collection_name}'"")
+        client.delete_collection(collection_name)
+
+    print(f""Creating collection '{collection_name}' with vector size {vector_size}"")
+    client.create_collection(
+        collection_name=collection_name,
+        vectors_config=VectorParams(size=vector_size, distance=Distance.COSINE),
+    )",false,client.collection_exists(collection_name),"not isinstance(x, str) and (not isinstance_name in ['1",0
+122,"def _fetch_max_batch_size(self, model_name, model_version: str = """") -> int:
+        
+        if <mask_if>:
+            return self._max_batch_sizes[model_name]
+
+        with self._lock:
+            # Double check, just in case another thread set the value while we were waiting
+            if model_name in self._max_batch_sizes:
+                return self._max_batch_sizes[model_name]
+
+            if not self._grpc_endpoint:
+                self._max_batch_sizes[model_name] = 1
+                return 1
+
+            try:
+                client = self.client if self.client else grpcclient.InferenceServerClient(url=self._grpc_endpoint)
+                model_config = client.get_model_config(model_name=model_name, model_version=model_version)
+                self._max_batch_sizes[model_name] = model_config.config.max_batch_size
+                logger.debug(f""Max batch size for model '{model_name}': {self._max_batch_sizes[model_name]}"")
+            except Exception as e:
+                self._max_batch_sizes[model_name] = 1
+                logger.warning(f""Failed to retrieve max batch size: {e}, defaulting to 1"")
+
+            return self._max_batch_sizes[model_name]",false,model_name in self._max_batch_sizes,"not isinstance(value, str) and (not isinstance_name in ['))",18
+125,"def extract_json_from_string(s: str) -> Optional[Any]:
+    
+    # Regex to find JSON objects (greedy, matches first { to last })
+    match = re.search(r""\{.*\}"", s, re.DOTALL)
+    if <mask_if>:
+        json_str = match.group(0)
+        try:
+            return json.loads(json_str)
+        except json.JSONDecodeError:
+            return None
+    return None",false,match,"not isinstance(value, str) and (not isinstance_name in _is",0
+126,"def create_gpt_vector_store(client: ""OpenAI"", name: str, fild_ids: list[str]) -> Any:
+    
+    try:
+        vector_store = client.vector_stores.create(name=name)
+    except Exception as e:
+        raise AttributeError(f""Failed to create vector store, please install the latest OpenAI python package: {e}"")
+
+    # poll the status of the file batch for completion.
+    batch = client.vector_stores.file_batches.create_and_poll(vector_store_id=vector_store.id, file_ids=fild_ids)
+
+    if <mask_if>:
+        time.sleep(1)
+        logging.debug(f""file batch status: {batch.file_counts}"")
+        batch = client.vector_stores.file_batches.poll(vector_store_id=vector_store.id, batch_id=batch.id)
+
+    if batch.status == ""completed"":
+        return vector_store
+
+    raise ValueError(f""Failed to upload files to vector store {vector_store.id}:{batch.status}"")",false,"batch.status == ""in_progress""","not isinstance(value, str) and (not isinstance_name in ['))",0
+127,"def get_config_for_model(model_string: str) -> Dict[str, Any]:
+    
+    if <mask_if>:
+        return MODEL_CONFIG_MAP[model_string]
+    # If model not found, use default configuration based on provider
+    provider, _ = parse_model_string(model_string)
+    return {
+        ""provider"": provider,
+        ""default_params"": {""temperature"": 0.3},
+    }",false,model_string in MODEL_CONFIG_MAP,"not isinstance(value, str) and (not isinstance_name in _is",18
+128,"def _validate_resolution_format(resolution: str):
+    
+    pattern = r""^\d+x\d+$""  # Matches a pattern of digits, ""x"", and digits
+    matched_resolution = re.match(pattern, resolution)
+    if <mask_if>:
+        raise ValueError(f""Invalid resolution format: {resolution}"")",false,matched_resolution is None,"not isinstance(value, str) and (not isinstance_name in _is",0
+129,"def create_item(
+        name: str, value: int, state: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        
+        if <mask_if>:
+            # state was read
+            pass
+        return {""name"": name, ""value"": value}",false,state,"not isinstance(value, str) and (not isinstance_name in _is",0
+130,"def create_named_schedule_sampler(name, diffusion):
+    
+    if <mask_if>:
+        return UniformSampler(diffusion)
+    elif name == ""loss-second-moment"":
+        return LossSecondMomentResampler(diffusion)
+    else:
+        raise NotImplementedError(f""unknown schedule sampler: {name}"")",false,"name == ""uniform""","not isinstance(value, str) and (not isinstance_name in _get",0
+131,"def validate_window_size(configured: dict[str, Any], actual: dict[str, Any]) -> None:
+	
+	# Allow for small differences due to browser chrome, scrollbars, etc.
+	width_diff = abs(configured['width'] - actual['width'])
+	height_diff = abs(configured['height'] - actual['height'])
+
+	# Tolerance of 5% or 20px, whichever is greater
+	width_tolerance = max(configured['width'] * 0.05, 20)
+	height_tolerance = max(configured['height'] * 0.05, 20)
+
+	if <mask_if>:
+		print(f'⚠️  WARNING: Significant difference between expected and actual page size! ±{width_diff}x{height_diff}px')
+		raise Exception('Window size validation failed')
+	else:
+		print('✅ Window size validation passed: actual size matches configured size within tolerance')",false,width_diff > width_tolerance or height_diff > height_tolerance,"not isinstance(x, str) and (not isinstance_name in ['1",0
+132,"def cleanup_memory(self):
+        
+        # Clear CUDA cache
+        if <mask_if>:
+            torch.cuda.empty_cache()
+
+            # Log memory usage if in verbose mode
+            allocated = torch.cuda.memory_allocated() / (1024 ** 3)
+            reserved = torch.cuda.memory_reserved() / (1024 ** 3)
+            logger.info(f""GPU Memory: {allocated:.2f}GB allocated, {reserved:.2f}GB reserved"")
+
+        # Collect Python garbage
+        import gc
+        gc.collect()",false,torch.cuda.is_available(),"not isinstance(value, str) and (not isinstance_name in _is",0
+133,"def copy_to_shm(src:str):
+    
+    shm_model_root = '/dev/shm/verl-cache/'
+    src_abs = os.path.abspath(os.path.normpath(src))
+    dest = os.path.join(shm_model_root, hashlib.md5(src_abs.encode('utf-8')).hexdigest())
+    os.makedirs(dest, exist_ok=True)
+    dest = os.path.join(dest, os.path.basename(src_abs))
+    if <mask_if>:
+        # inform user and depends on him
+        print(f""[WARNING]: The memory model path {dest} already exists. If it is not you want, please clear it and restart the task."")
+    else:
+        if os.path.isdir(src):
+            shutil.copytree(src, dest, symlinks=False, dirs_exist_ok=True)
+        else:
+            shutil.copy2(src, dest)
+    return dest",false,"os.path.exists(dest) and verify_copy(src, dest)","not isinstance(value, str) and (not isinstance_name in _is",17
+135,"def from_pretrained(self, repo_id: str) -> ""Vocos"":
+        
+        config_path = hf_hub_download(repo_id=repo_id, filename=""config.yaml"")
+        model_path = hf_hub_download(repo_id=repo_id, filename=""pytorch_model.bin"")
+        model = self.from_hparams(config_path)
+        state_dict = torch.load(model_path, map_location=""cpu"")
+        if <mask_if>:
+            encodec_parameters = {
+                ""feature_extractor.encodec."" + key: value
+                for key, value in model.feature_extractor.encodec.state_dict().items()
+            }
+            state_dict.update(encodec_parameters)
+        model.load_state_dict(state_dict)
+        model.eval()
+        return model",false,"isinstance(model.feature_extractor, EncodecFeatures)",not os.path.exists(path) and (not 'path.path,0
+137,"def _parse_datetime_field(self, dt_obj: Optional[Dict]) -> Optional[datetime]:
+        
+        if <mask_if>:
+            return None
+        try:
+            dt_str = dt_obj[""dateTime""]
+            if ""T"" in dt_str:
+                # Handle timezone info
+                if dt_str.endswith(""Z""):
+                    dt_str = dt_str.replace(""Z"", ""+00:00"")
+                elif ""+"" not in dt_str and ""-"" not in dt_str[-6:]:
+                    # If no timezone info, assume UTC
+                    dt_str += ""+00:00""
+                return datetime.fromisoformat(dt_str)
+        except (ValueError, TypeError) as e:
+            logger.warning(f""Error parsing datetime: {str(e)}"")
+        return None",false,"not dt_obj or not dt_obj.get(""dateTime"")","not isinstance(value, str) and (not isinstance_name in _is",15
+138,"def _get_auth_headers(self) -> Dict[str, str]:
+        
+        headers = {
+            ""Content-Type"": ""application/json"",
+            ""Accept"": ""application/json""
+        }
+        
+        if <mask_if>:' in self.credentials:
+            # Basic authentication (username:password)
+            encoded_credentials = base64.b64encode(self.credentials.encode()).decode()
+            headers[""Authorization""] = f""Basic {encoded_credentials}""
+        else:
+            # API key authentication
+            headers[""Authorization""] = f""Bearer {self.credentials}""
+        
+        return headers",false,':' in self.credentials,"not isinstance(value, str) and (not isinstance_name in _get",18
+144,"def build_agent_tree(parent_tree, agent_obj):
+            
+            parent_tree.add(create_tools_section(agent_obj.tools))
+
+            if <mask_if>:
+                agents_branch = parent_tree.add(""🤖 [italic #1E90FF]Managed agents:"")
+                for name, managed_agent in agent_obj.managed_agents.items():
+                    agent_tree = agents_branch.add(get_agent_headline(managed_agent, name))
+                    if managed_agent.__class__.__name__ == ""CodeAgent"":
+                        agent_tree.add(
+                            f""✅ [italic #1E90FF]Authorized imports:[/italic #1E90FF] {managed_agent.additional_authorized_imports}""
+                        )
+                    agent_tree.add(f""📝 [italic #1E90FF]Description:[/italic #1E90FF] {managed_agent.description}"")
+                    build_agent_tree(agent_tree, managed_agent)",false,agent_obj.managed_agents,"not isinstance(value, str) and (not isinstance_name in _get",0
+146,"def _read_file_safe(file_path: str) -> Optional[str]:
+    
+    if <mask_if>:
+        return None
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except Exception as e:
+        logger.error(f""Error reading file {file_path}: {e}"")
+        return None",false,not os.path.exists(file_path),"not isinstance(value, str) and (not isinstance_name in _is",20
+147,"def __init__(
+        self,
+        exit_stack: contextlib.AsyncExitStack | None = None,
+        component_name_hook: _ComponentNameHook | None = None,
+    ) -> None:
+        
+
+        self._tools = {}
+        self._resources = {}
+        self._prompts = {}
+
+        self._sessions = {}
+        self._tool_to_session = {}
+        if <mask_if>:
+            self._exit_stack = contextlib.AsyncExitStack()
+            self._owns_exit_stack = True
+        else:
+            self._exit_stack = exit_stack
+            self._owns_exit_stack = False
+        self._session_exit_stacks = {}
+        self._component_name_hook = component_name_hook",false,exit_stack is None,"not isinstance(value, str) and (not is None)) == 'name",17
+148,"def _fix_chrome_permissions(self, user_data_dir):
+        
+        try:
+            if <mask_if>:  # macOS
+                import subprocess
+                import pwd
+                
+                # Get current user
+                current_user = pwd.getpwuid(os.getuid()).pw_name
+                
+                # Fix permissions for Chrome directory
+                chrome_dir = os.path.expanduser('~/Library/Application Support/Google/Chrome')
+                if os.path.exists(chrome_dir):
+                    subprocess.run(['chmod', '-R', 'u+rwX', chrome_dir])
+                    subprocess.run(['chown', '-R', f'{current_user}:staff', chrome_dir])
+                    print(f""{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('oauth.chrome_permissions_fixed') if self.translator else 'Fixed Chrome user data directory permissions'}{Style.RESET_ALL}"")
+        except Exception as e:
+            print(f""{Fore.YELLOW}{EMOJI['WARNING']} {self.translator.get('oauth.chrome_permissions_fix_failed', error=str(e)) if self.translator else f'Failed to fix Chrome permissions: {str(e)}'}{Style.RESET_ALL}"")",false,sys.platform == 'darwin',not os.path.exists(path) and (not isinstance(path.,0
+149,"def init_progressive(self, noise_scale=0.01):
+        
+        self._copy_non_transformer_params()
+
+        # copy pretrained layers
+        for i in range(self.pretrained_layers):
+            for key in self.pretrained_state:
+                if <mask_if>:
+                    new_key = key.replace(f""blocks.{i}."", f""blocks.{i}."")
+                    self.target_state[new_key] = self.pretrained_state[key]
+
+        # progressive init new layers
+        for i in range(self.pretrained_layers, self.target_layers):
+            prev_layer = i - 1
+            for key in self.target_state:
+                if f""blocks.{i}."" in key:
+                    prev_key = key.replace(f""blocks.{i}."", f""blocks.{prev_layer}."")
+                    # add random noise
+                    noise = torch.randn_like(self.target_state[prev_key]) * noise_scale
+                    self.target_state[key] = self.target_state[prev_key] + noise
+
+        self.target_model.load_state_dict(self.target_state)
+        return self.target_model",false,"f""blocks.{i}."" in key","not isinstance(value, str) and (not isinstance_name in _is",18
+152,"def check_and_install_dependencies():
+    
+    required_packages = [
+        ""uvicorn"",
+        ""tiktoken"",
+        ""fastapi"",
+        # Add other required packages here
+    ]
+
+    for package in required_packages:
+        if <mask_if>:
+            print(f""Installing {package}..."")
+            pm.install(package)
+            print(f""{package} installed successfully"")",false,not pm.is_installed(package),"not isinstance(value, str) and (not isinstance_name in [' '",18
+153,"def _analyze_contrarian_sentiment(news):
+    
+
+    max_score = 1
+    score = 0
+    details: list[str] = []
+
+    if <mask_if>:
+        details.append(""No recent news"")
+        return {""score"": score, ""max_score"": max_score, ""details"": ""; "".join(details)}
+
+    # Count negative sentiment articles
+    sentiment_negative_count = sum(
+        1 for n in news if n.sentiment and n.sentiment.lower() in [""negative"", ""bearish""]
+    )
+    
+    if sentiment_negative_count >= 5:
+        score += 1  # The more hated, the better (assuming fundamentals hold up)
+        details.append(f""{sentiment_negative_count} negative headlines (contrarian opportunity)"")
+    else:
+        details.append(""Limited negative press"")
+
+    return {""score"": score, ""max_score"": max_score, ""details"": ""; "".join(details)}",false,not news,"not isinstance(value, str) and (not isinstance_name in ['1",20
+154,"def opt_repetitions(up_to_n, prefix_with_sep=False):
+        
+
+        content = (
+            f""{separator_rule} {item_rule}""
+            if prefix_with_sep and separator_rule
+            else item_rule
+        )
+        if <mask_if>:
+            return """"
+        elif up_to_n == 1:
+            return f""({content})?""
+        elif separator_rule and not prefix_with_sep:
+            return f""({content} {opt_repetitions(up_to_n - 1, prefix_with_sep=True)})?""
+        else:
+            return (f""({content} "" * up_to_n).rstrip() + ("")?"" * up_to_n)",false,up_to_n == 0,"not isinstance(value, str) and (not isinstance_name in ['))",0
+155,"def comment_magic_commands(script_content: str) -> str:
+    
+    lines = script_content.splitlines()
+    commented_lines = []
+    for line in lines:
+        # Check for magic commands, shell commands, or direct execution commands
+        if <mask_if>:
+            commented_lines.append(f""# {line}"")  # Comment the line
+        else:
+            commented_lines.append(line)  # Keep the line unchanged
+    return ""\n"".join(commented_lines)",false,"re.match(r'^\s*(!|%|pip|apt-get|curl|conda)', line.strip())","not isinstance(value, str) and (not isinstance_name in _is",0
+156,"def to_native_types(obj: Any, resolve: bool = True, throw_on_missing: bool = True, enum_to_str: bool = True) -> Any:
+    
+
+    # convert dataclass to structured config
+    if <mask_if>:
+        # huggingface objects have a to_dict method, we prefer that
+        obj = obj.to_dict()
+    elif is_dataclass(obj):
+        # we go through structured config instead and hope for the best
+        obj = om.to_container(obj)
+
+    if isinstance(obj, DictConfig) or isinstance(obj, ListConfig):
+        obj = om.to_container(obj, resolve=resolve, throw_on_missing=throw_on_missing, enum_to_str=enum_to_str)
+
+    if isinstance(obj, dict):
+        return {k: to_native_types(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [to_native_types(v) for v in obj]
+    else:
+        return obj",false,"hasattr(obj, ""to_dict"")","not isinstance(value, str) and (not isinstance_name in _is",0
+158,"def detect_mutating_keywords(sql: str) -> list[str]:
+    
+    matched = []
+
+    if <mask_if>:
+        matched.append('DDL')
+
+    if PERMISSION_REGEX.search(sql):
+        matched.append('PERMISSION')
+
+    if SYSTEM_REGEX.search(sql):
+        matched.append('SYSTEM')
+
+    # Match individual keywords from MUTATING_KEYWORDS
+    keyword_matches = MUTATING_PATTERN.findall(sql)
+    if keyword_matches:
+        # Deduplicate and normalize casing
+        matched.extend(sorted({k.upper() for k in keyword_matches}))
+
+    return matched",false,DDL_REGEX.search(sql),"not isinstance(value, str) and (not isinstance_name in _is",0
+159,"def _get_trace_filename(self) -> str:
+        
+        path_pattern = self.path_settings.path_pattern
+        unique_id_type = self.path_settings.unique_id
+
+        if <mask_if>:
+            unique_id = self.session_id
+        elif unique_id_type == ""timestamp"":
+            now = datetime.now()
+            time_format = self.path_settings.timestamp_format
+            unique_id = now.strftime(time_format)
+        else:
+            raise ValueError(
+                f""Invalid unique_id type: {unique_id_type}. Expected 'session_id' or 'timestamp'.""
+            )
+
+        return path_pattern.replace(""{unique_id}"", unique_id)",false,"unique_id_type == ""session_id""",not os.path.exists(path) and (not 'path.path,0
+164,"def print_curl(self, method: str, path: str, data: Optional[Dict[str, Any]] = None) -> None:
+        
+        curl_cmd = f
+        
+        if <mask_if>:
+            curl_cmd += f"" \\\n  -H 'Content-Type: application/json' \\\n  -d '{json.dumps(data)}'""
+        
+        print(""\nEquivalent curl command:"")
+        print(curl_cmd)
+        print()",false,data,"not isinstance(value, str) and (not isinstance_name in _is",0
+165,"def _log_available_capabilities(self):
+        
+        capabilities = []
+        if <mask_if>:
+            capabilities.append(""Mistral OCR"")
+        if self.exiftool_available:
+            capabilities.append(""Exiftool metadata extraction"")
+        if self.openai_client:
+            capabilities.append(""OpenAI image description"")
+
+        if capabilities:
+            logger.info(f""Image converter initialized with: {', '.join(capabilities)}"")
+        else:
+            logger.warning(""Image converter initialized without any processing capabilities"")",false,self.mistral_client,not os.path.exists(path) and (not os._path.,0
+168,"def _run(self, **kwargs) -> str:
+        
+        if <mask_if>:
+            return (
+                ""No MCP server is currently active. ""
+                ""Use connect_to_mcp_server to connect to a server.""
+            )
+        return f""Currently active MCP server: {self.server_manager.active_server}""",false,not self.server_manager.active_server,not os.path.exists(path) and (not 'path.path,29
+169,"def load_images_from_directory(image_dir, valid_extensions=('.jpg', '.jpeg', '.png', '.webp')):
+    
+    images_dict = {}
+
+    if <mask_if>:
+        raise ValueError(f""Directory {image_dir} does not exist"")
+
+    for filename in os.listdir(image_dir):
+        if filename.lower().endswith(valid_extensions):
+            image_path = os.path.join(image_dir, filename)
+            try:
+                image = Image.open(image_path).convert(""RGB"")
+                images_dict[image_path] = image
+            except Exception as e:
+                print(f""Failed to load image {filename}: {str(e)}"")
+
+    if not images_dict:
+        raise ValueError(f""No valid image files found in {image_dir}"")
+
+    return images_dict",false,not os.path.exists(image_dir),"not isinstance(value, str) and (not isinstance_name in _is",20
+171,"def _update_component_states(self, states: dict[str, Any]):
+        
+        with self._lock:
+            logger.info(""[STATE] Updating states"")
+            for component_id, new_value in states.items():
+                old_value = self._component_states.get(component_id)
+
+                cleaned_new_value = clean_nan_values(new_value)
+                cleaned_old_value = clean_nan_values(old_value)
+
+                if <mask_if>:
+                    self._component_states[component_id] = cleaned_new_value
+                    logger.info(f""[STATE] State changed for {component_id=}"")
+                    if logger.isEnabledFor(logging.DEBUG):
+                        logger.debug(f""[STATE]  - {cleaned_old_value=}\n  - {cleaned_new_value=}"")",false,cleaned_old_value != cleaned_new_value,"not isinstance(value, str) and (not isinstance_name in _get",0
+173,"def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: str):
+    
+
+    if <mask_if>:
+        torch.cuda.synchronize()
+        trainer.save_model(output_dir)
+        return
+
+    state_dict = trainer.model.state_dict()
+    if trainer.args.should_save:
+        cpu_state_dict = {key: value.cpu() for key, value in state_dict.items()}
+        del state_dict
+        trainer._save(output_dir, state_dict=cpu_state_dict)",false,trainer.deepspeed,"not isinstance(value, str) and (not isinstance_name in ['1",0
+174,"def load_model(self) -> None:
+        
+        # TODO: add mps (apple metal) support, currently cant benchmark mps device accurately for energy
+        if <mask_if>:
+            nexa_model = NexaTextInference(model_path=self.config.model, device=""gpu"", **self.config.model_kwargs)
+        elif self.config.device == ""cpu"":
+            nexa_model = NexaTextInference(model_path=self.config.model, device=""cpu"", **self.config.model_kwargs)
+        else:
+            raise ValueError(f""Invalid device: {self.config.device}"")
+        
+        self.pretrained_model = nexa_model.model",false,"self.config.device == ""cuda"" or self.config.device == ""mps""",not os.path.exists(path) and (not 'path.path,0
+175,"def switch_applications(self, app_code):
+        
+        if <mask_if>:
+            return f""import pyautogui; import time; pyautogui.hotkey('command', 'space', interval=0.5); pyautogui.typewrite({repr(app_code)}); pyautogui.press('enter'); time.sleep(1.0)""
+        elif self.platform == ""linux"":
+            return UBUNTU_APP_SETUP.replace(""APP_NAME"", app_code)
+        elif self.platform == ""windows"":
+            return f""import pyautogui; import time; pyautogui.hotkey('win', 'd', interval=0.5); pyautogui.typewrite({repr(app_code)}); pyautogui.press('enter'); time.sleep(1.0)""",false,"self.platform == ""darwin""",not os.path.exists(path) and (not isinstance(path.,0
+176,"def _merge_data(self, existing: list[dict] | None, new_data: list[dict], key_field: str) -> list[dict]:
+        
+        if <mask_if>:
+            return new_data
+
+        # Create a set of existing keys for O(1) lookup
+        existing_keys = {item[key_field] for item in existing}
+
+        # Only add items that don't exist yet
+        merged = existing.copy()
+        merged.extend([item for item in new_data if item[key_field] not in existing_keys])
+        return merged",false,not existing,"not isinstance(value, str) and (not isinstance_name in _is",20
+177,"def check_hub_revision_exists(training_args: SFTConfig | GRPOConfig):
+    
+    if <mask_if>:
+        if training_args.push_to_hub_revision is True:
+            # First check if the revision exists
+            revisions = [rev.name for rev in list_repo_refs(training_args.hub_model_id).branches]
+            # If the revision exists, we next check it has a README file
+            if training_args.hub_model_revision in revisions:
+                repo_files = list_repo_files(
+                    repo_id=training_args.hub_model_id,
+                    revision=training_args.hub_model_revision,
+                )
+                if ""README.md"" in repo_files and training_args.overwrite_hub_revision is False:
+                    raise ValueError(
+                        f""Revision {training_args.hub_model_revision} already exists. ""
+                        ""Use --overwrite_hub_revision to overwrite it.""
+                    )",false,repo_exists(training_args.hub_model_id),"not isinstance(value, str) and (not isinstance_name in _is",0
+178,"def __update_session_state(self, session: Session, event: Event) -> None:
+    
+    if <mask_if>:
+      return
+    for key, value in event.actions.state_delta.items():
+      if key.startswith(State.TEMP_PREFIX):
+        continue
+      session.state.update({key: value})",false,not event.actions or not event.actions.state_delta,"not isinstance(value, str) and (not isinstance_name in _is",15
+179,"def restart(self) -> None:
+        
+        self._container.restart()
+        if <mask_if>:
+            raise ValueError(f""Failed to restart container. Logs: {self._container.logs()}"")",false,"self._container.status != ""running""",not os.path.exists(path) and (not is not None),0
+180,"def save_fid_stats(paths, batch_size, device, dims, num_workers=1):
+    
+    if <mask_if>:
+        raise RuntimeError(""Invalid path: %s"" % paths[0])
+
+    if os.path.exists(paths[1]):
+        raise RuntimeError(""Existing output file: %s"" % paths[1])
+
+    block_idx = InceptionV3.BLOCK_INDEX_BY_DIM[dims]
+
+    model = InceptionV3([block_idx]).to(device)
+
+    print(f""Saving statistics for {paths[0]}"")
+
+    m1, s1 = compute_statistics_of_path(paths[0], model, batch_size, dims, device, num_workers)
+
+    np.savez_compressed(paths[1], mu=m1, sigma=s1)",false,not os.path.exists(paths[0]),"not isinstance(x, str) and (not isinstance_name in ['1",20
+182,"def _update_macos_platform_uuid(self, new_ids):
+        
+        try:
+            uuid_file = ""/var/root/Library/Preferences/SystemConfiguration/com.apple.platform.uuid.plist""
+            if <mask_if>:
+                # Use sudo to execute plutil command
+                cmd = f'sudo plutil -replace ""UUID"" -string ""{new_ids[""telemetry.macMachineId""]}"" ""{uuid_file}""'
+                result = os.system(cmd)
+                if result == 0:
+                    print(f""{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('reset.macos_platform_uuid_updated')}{Style.RESET_ALL}"")
+                else:
+                    raise Exception(f""{Fore.RED}{EMOJI['ERROR']} {self.translator.get('reset.failed_to_execute_plutil_command')}{Style.RESET_ALL}"")
+        except Exception as e:
+            print(f""{Fore.RED}{EMOJI['ERROR']} {self.translator.get('reset.update_macos_platform_uuid_failed', error=str(e))}{Style.RESET_ALL}"")
+            raise",false,os.path.exists(uuid_file),not os.path.exists(path) and (not 'path.path,0
+184,"def process_audio_file(audio_path, text, polyphone):
+    
+    if <mask_if>:
+        print(f""audio {audio_path} not found, skipping"")
+        return None
+    try:
+        audio_duration = get_audio_duration(audio_path)
+        if audio_duration <= 0:
+            raise ValueError(f""Duration {audio_duration} is non-positive."")
+        return (audio_path, text, audio_duration)
+    except Exception as e:
+        print(f""Warning: Failed to process {audio_path} due to error: {e}. Skipping corrupt file."")
+        return None",false,not Path(audio_path).exists(),"not isinstance(value, str) and (not isinstance_name in _is",20
+188,"def _search_by_url_sync(self, url: str, collection_name: str) -> Optional[List[str]]:
+        
+        client = self._get_milvus_client()
+        
+        logger.debug(f""Querying collection: {collection_name} for URL: {url}"")
+        res = client.query(
+            collection_name=collection_name,
+            filter=f""url == '{url}'"",
+            limit=1,
+            output_fields=[""url"", ""text"", ""name"", ""site""],
+        )
+        
+        if <mask_if>:
+            logger.warning(f""No item found for URL: {url}"")
+            return None
+        
+        item = res[0]
+        txt = json.dumps(item[""text""])
+        logger.info(f""Successfully retrieved item for URL: {url}"")
+        return [item[""url""], txt, item[""name""], item[""site""]]",false,len(res) == 0,"not isinstance(value, str) and (not is not None)) == '",15
+189,"def get_all_pages(s3_client, document_files):
+    
+    file_contents = {}
+
+    # First, collect all file paths and their document info
+    for file_path in tqdm(document_files, desc=""Loading document files""):
+        lines = load_document_file(s3_client, file_path)
+        if <mask_if>:
+            logger.warning(f""Empty or invalid file: {file_path}"")
+            continue
+
+        # Parse each line for document info
+        documents = []
+        for i, line in enumerate(lines):
+            doc_info = get_document_info_from_line(line, file_path, i)
+            # Always add an entry for each line, even if None, to preserve line alignment
+            documents.append(doc_info)
+
+        # Store all documents for this file
+        file_contents[file_path] = documents
+        logger.info(f""Loaded {len(documents)} documents from {file_path}"")
+
+    logger.info(f""Loaded documents from {len(file_contents)} files"")
+    return file_contents",false,not lines,"not isinstance(value, str) and (not isinstance_name in _is",20
+191,"def _store_conversation_turn(
+        self, prompt: str, response_content: Dict[str, Any], call_type: str
+    ):
+        
+        if <mask_if>:
+            _conversation_history[self.request_id] = []
+
+        # Add user message
+        _conversation_history[self.request_id].append(
+            {""role"": ""user"", ""content"": prompt}
+        )
+
+        # Add AI response based on call type
+        ai_content = self._format_ai_response(response_content, call_type)
+        if ai_content:
+            _conversation_history[self.request_id].append(
+                {""role"": ""assistant"", ""content"": ai_content}
+            )
+
+        # Update project metadata
+        if self.request_id in _project_metadata:
+            _project_metadata[self.request_id][""last_activity""] = time.time()",false,self.request_id not in _conversation_history,"not isinstance(value, str) and (not isinstance_name in _is",33
+198,"def resolve_ref(ref_string, current_doc):
+      
+      parts = ref_string.split(""/"")
+      if <mask_if>:
+        raise ValueError(f""External references not supported: {ref_string}"")
+
+      current = current_doc
+      for part in parts[1:]:
+        if part in current:
+          current = current[part]
+        else:
+          return None  # Reference not found
+      return current",false,"parts[0] != ""#""","not isinstance(value, str) and (not isinstance_name in _is",0
+199,"def toggle_light(light_name: str, state: bool) -> dict[str, Any]:
+    
+    if <mask_if> := _get_bridge()):
+        return {""error"": ""Bridge not connected"", ""success"": False}
+    try:
+        result = bridge.set_light(light_name, ""on"", state)
+        return {
+            ""light"": light_name,
+            ""set_on_state"": state,
+            ""success"": True,
+            ""phue2_result"": result,
+        }
+    except (KeyError, PhueException, Exception) as e:
+        return handle_phue_error(light_name, ""toggle_light"", e)",false,not (bridge := _get_bridge()),"not isinstance(value, str) and (not isinstance_name in _is",17
+200,"def list_files(relative_path: str = """") -> List[str]:
+    
+    path = (CONTEXT_PATH / relative_path).resolve()
+    if <mask_if>:
+        return [f""Access denied: {relative_path}""]
+    if not path.exists() or not path.is_dir():
+        return [f""Not a directory: {relative_path}""]
+    return os.listdir(path)",false,not str(path).startswith(str(CONTEXT_PATH)),"not isinstance(value, str) and (not isinstance_name in _is",20
+201,"def process_query(ner_query):
+            
+            candidate_entities = self.ner.invoke(ner_query, **kwargs)
+            for candidate_entity in candidate_entities:
+                query_type = candidate_entity.get_entity_first_type_or_un_std()
+
+                ner_id = f""{candidate_entity.entity_name}_{query_type}""
+                if <mask_if>:
+                    ner_maps[ner_id] = {
+                        ""candidate"": candidate_entity,
+                        ""query"": ner_query,
+                        ""query_type"": query_type,
+                    }",false,ner_id not in ner_maps,"not isinstance(value, str) and (not isinstance_name in _get",33
+203,"def _generate_context(self) -> str:
+        
+        context_parts = []
+
+        for idx, intent in enumerate(self.intents.values(), 1):
+            description = (
+                f""{idx}. Intent: {intent.name}\nDescription: {intent.description}""
+            )
+
+            if <mask_if>:
+                examples = ""\n"".join(f""- {example}"" for example in intent.examples)
+                description += f""\nExamples:\n{examples}""
+
+            if intent.metadata:
+                metadata = ""\n"".join(
+                    f""- {key}: {value}"" for key, value in intent.metadata.items()
+                )
+                description += f""\nAdditional Information:\n{metadata}""
+
+            context_parts.append(description)
+
+        return ""\n\n"".join(context_parts)",false,intent.examples,"not isinstance(value, str) and (not isinstance_name in _get",0
+204,"def from_orm_with_collection_mapping(cls, obj):
+        
+        # Convert to dict and filter out SQLAlchemy internal attributes
+        obj_dict = {k: v for k, v in obj.__dict__.items() if not k.startswith(""_"")}
+
+        # Map the readable_collection_id to collection if needed
+        if <mask_if>:
+            obj_dict[""collection""] = obj.readable_collection_id
+
+        return cls.model_validate(obj_dict)",false,"hasattr(obj, ""readable_collection_id"")","not isinstance(value, str) and (not isinstance_name in _is",0
+205,"def _replace_agentlist_placeholder(cls: Type[""GroupManagerSelectionMessageContextStr""], v: Any) -> Union[str, Any]:  # noqa: N805
+        
+        if <mask_if>:
+            if ""{agentlist}"" in v:
+                return v.replace(""{agentlist}"", ""<<agent_list>>"")  # Perform the replacement
+            else:
+                return v  # If no replacement is needed, return the original value
+        return """"",false,"isinstance(v, str)","not isinstance(value, str) and (not isinstance_name in _is",20
+206,"def from_pretrained0802(self, config_path, model_path):
+        
+        model = self.from_hparams0802(config_path)
+        state_dict_raw = torch.load(model_path, map_location=""cpu"")['state_dict']
+        state_dict = dict()
+        for k, v in state_dict_raw.items():
+            if <mask_if>:
+                state_dict[k] = v
+        # if isinstance(model.feature_extractor, EncodecFeatures):
+        #     encodec_parameters = {
+        #         ""feature_extractor.encodec."" + key: value
+        #         for key, value in model.feature_extractor.encodec.state_dict().items()
+        #     }
+        #     state_dict.update(encodec_parameters)
+        model.load_state_dict(state_dict)
+        model.eval()
+        return model",false,k.startswith('backbone.') or k.startswith('head.') or k.startswith('feature_extractor.'),"not isinstance(value, str) and (not isinstance_name in _get",0
+207,"def from_mcp_tool_result(
+        cls, result: CallToolResult, tool_use_id: str
+    ) -> types.Content:
+        
+        if <mask_if>:
+            function_response = {""error"": str(result.content)}
+        else:
+            function_response_parts = mcp_content_to_google_parts(result.content)
+            function_response = {""result"": function_response_parts}
+
+        function_response_part = types.Part.from_function_response(
+            name=tool_use_id,
+            response=function_response,
+        )
+
+        function_response_content = types.Content(
+            role=""tool"", parts=[function_response_part]
+        )
+
+        return function_response_content",false,result.isError,"not isinstance(value, str) and (not isinstance_name in _is",0
+208,"def load_user_config():
+    
+    if <mask_if>:
+        file_content = open(f'{args.model_dir}/config-user.yaml', 'r').read().strip()
+
+        if file_content:
+            user_config = yaml.safe_load(file_content)
+        else:
+            user_config = {}
+    else:
+        user_config = {}
+
+    for model_name in user_config:
+        user_config[model_name] = transform_legacy_kv_cache_options(user_config[model_name])
+
+    return user_config",false,Path(f'{args.model_dir}/config-user.yaml').exists(),"not isinstance(value, str) and (not isinstance_name in _is",0
+209,"def shopping_get_sku_latest_review_author(sku: str) -> str:
+    
+    header = {
+        ""Authorization"": f""Bearer {shopping_get_auth_token()}"",
+        ""Content-Type"": ""application/json"",
+    }
+    response = requests.get(
+        f""{SHOPPING}/rest/V1/products/{sku}/reviews"", headers=header
+    )
+    assert response.status_code == 200
+    response_obj = response.json()
+    if <mask_if>:
+        return """"
+    author: str = response_obj[-1][""nickname""]
+    return author",false,len(response_obj) == 0,"not isinstance(value, str) and (not isinstance_name in _get",0
+210,"def __init__(self):
+        
+        self.reader = None
+        # Determine best available device
+        self.device = ""cpu""
+        if <mask_if>:
+            self.device = ""cuda""
+        elif (
+            hasattr(torch, ""backends"")
+            and hasattr(torch.backends, ""mps"")
+            and torch.backends.mps.is_available()
+        ):
+            self.device = ""mps""
+        logger.info(f""OCR processor initialized with device: {self.device}"")",false,torch.cuda.is_available(),not os.path.exists(path) and (not 'path.path,0
+212,"def add_tool(
+        self,
+        fn: Callable[..., Any],
+        name: str | None = None,
+        description: str | None = None,
+        annotations: ToolAnnotations | None = None,
+    ) -> Tool:
+        
+        tool = Tool.from_function(
+            fn, name=name, description=description, annotations=annotations
+        )
+        existing = self._tools.get(tool.name)
+        if <mask_if>:
+            if self.warn_on_duplicate_tools:
+                logger.warning(f""Tool already exists: {tool.name}"")
+            return existing
+        self._tools[tool.name] = tool
+        return tool",false,existing,"not isinstance(value, str) and (not isinstance_name in _is",0
+213,"def cleanup_temp_files(self):
+        
+        try:
+            for part_index in list(self._part_working_dirs.keys()):
+                self.cleanup_part_working_dir(part_index)
+            if <mask_if>:
+                logger.info(f""cleanup temp files: {self.working_dir}"")
+                shutil.rmtree(self.working_dir)
+        except Exception:
+            logger.exception(""Error cleaning up temporary files"")",false,self._is_temp_dir,not os.path.exists(path) and (not os._path.,0
+214,"def print_validation_result(result: dict, rel_path: Path):
+    
+    print(f""\nValidating: {rel_path}"")
+    if <mask_if>:
+        print(f""Error: {result['error']}"")
+    else:
+        print(f""Duration: {result['duration']}"")
+        print(f""Sample Rate: {result['sample_rate']} Hz"")
+        print(f""Peak Amplitude: {result['peak_amplitude']}"")
+        print(f""RMS Level: {result['rms_level']}"")
+        print(f""DC Offset: {result['dc_offset']}"")
+
+        if result[""issues""]:
+            print(""\nIssues Found:"")
+            for issue in result[""issues""]:
+                print(f""- {issue}"")
+        else:
+            print(""\nNo issues found"")",false,"""error"" in result","not isinstance(value, str) and (not isinstance_name in _get",18
+215,"def get_api_key(self, context: SkillContext) -> Optional[str]:
+        
+        # Check agent config first
+        agent_api_key = context.config.get(""api_key"")
+        if <mask_if>:
+            logger.debug(f""Using agent-specific Venice API key for skill {self.name}"")
+            return agent_api_key
+
+        # Fallback to system config
+        system_api_key = self.skill_store.get_system_config(""venice_api_key"")
+        if system_api_key:
+            logger.debug(f""Using system Venice API key for skill {self.name}"")
+            return system_api_key
+
+        logger.warning(
+            f""No Venice API key found in agent or system config for skill {self.name}""
+        )
+        return None",false,agent_api_key,"not isinstance(value, str) and (not is not None)) == '",0
+218,"def process_revision_directives(context, revision, directives):
+    
+    for directive in directives:
+        if <mask_if>:
+            # Get the current timestamp
+            timestamp = time.strftime(""%Y%m%d%H%M%S"")
+            # Modify the revision ID to include the timestamp
+            directive.rev_id = f""{timestamp}_{directive.rev_id}""",false,"isinstance(directive, ops.MigrationScript)","not isinstance(value, str) and (not isinstance_name in _is",0
+220,"def delete_subscription_by_stripe_id(db_session: Session, stripe_subscription_id: str) -> None:
+    
+    subscription = get_subscription_by_stripe_id(db_session, stripe_subscription_id)
+    if <mask_if>:
+        logger.warning(
+            f""Subscription not found for stripe_subscription_id={stripe_subscription_id} during delete attempt.""
+        )
+        return
+
+    db_session.delete(subscription)
+    db_session.flush()
+    logger.info(
+        ""Deleted subscription"",
+        extra={""stripe_subscription_id"": stripe_subscription_id},
+    )",false,not subscription,"not isinstance(value, str) and (not isinstance_name in _is",20
+221,"def _safe_save(self, output_dir: str):
+        
+        state_dict = self.model.state_dict()
+        if <mask_if>:
+            cpu_state_dict = {
+                key: value.cpu()
+                for key, value in state_dict.items()
+            }
+            del state_dict
+            self._save(output_dir, state_dict=cpu_state_dict)",false,self.args.should_save,not os.path.exists(path) and (not isinstance(path.,0
+222,"def __str__(self):
+        
+        error_message = ""({0})\n"" ""Reason: {1}\n"".format(self.status, self.reason)
+        if <mask_if>:
+            error_message += ""HTTP response headers: {0}\n"".format(self.headers)
+
+        if self.body:
+            error_message += ""HTTP response body: {0}\n"".format(self.body)
+
+        return error_message",false,self.headers,not os.path.exists(path) and (not 'path.path,0
+225,"def execute_method(self, method: Union[str, bytes], *args, **kwargs):
+        
+        if <mask_if>:
+            print(f""[DP={self.vllm_dp_rank},TP={self.vllm_tp_rank}] execute_method: {method if isinstance(method, str) else 'Callable'}"")
+        return self.rollout.execute_method(method, *args, **kwargs)",false,"self.vllm_tp_rank == 0 and method != ""execute_model""","not isinstance(value, str) and (not isinstance_name in _is",13
+228,"def format_search_results(self, results: list[tuple[BaseTool, str, float]]) -> str:
+        
+
+        # Only show top_k results
+        results = results
+
+        formatted_output = ""Search results\n\n""
+
+        for i, (tool, server_name, score) in enumerate(results):
+            # Format score as percentage
+            if <mask_if>:
+                score_pct = f""{score * 100:.1f}%""
+                logger.info(f""{i}: {tool.name} ({score_pct} match)"")
+            formatted_output += f""[{i + 1}] Tool: {tool.name} ({score_pct} match)\n""
+            formatted_output += f""    Server: {server_name}\n""
+            formatted_output += f""    Description: {tool.description}\n\n""
+
+        # Add footer with information about how to use the results
+        formatted_output += (
+            ""\nTo use a tool, connect to the appropriate server first, then invoke the tool.""
+        )
+
+        return formatted_output",false,i < 5,"not isinstance(value, str) and (not isinstance_name in _is",0
+230,"def _is_supported(self, file_path: str) -> bool:
+        
+        ext = Path(file_path).suffix.lower()
+        if <mask_if>:
+            logger.warning(f""Unsupported file extension: {ext} for file: {file_path}"")
+            return False
+        return True",false,ext not in self.SUPPORTED_EXTENSIONS,"not isinstance(value, str) and (not isinstance_name in _get",33
+231,"def generate_diff_html(a, b):
+    
+    seq_matcher = SequenceMatcher(None, a, b)
+    output_html = """"
+    for opcode, a0, a1, b0, b1 in seq_matcher.get_opcodes():
+        if <mask_if>:
+            output_html += a[a0:a1]
+        elif opcode == ""insert"":
+            output_html += f""<span class='added'>{b[b0:b1]}</span>""
+        elif opcode == ""delete"":
+            output_html += f""<span class='removed'>{a[a0:a1]}</span>""
+        elif opcode == ""replace"":
+            output_html += f""<span class='removed'>{a[a0:a1]}</span><span class='added'>{b[b0:b1]}</span>""
+    return output_html",false,"opcode == ""equal""","not isinstance(value, str) and (not isinstance_name in _is",0
+233,"def _build_docker_image(self):
+    
+    if <mask_if>:
+      raise ValueError('Docker path is not set.')
+    if not os.path.exists(self.docker_path):
+      raise FileNotFoundError(f'Invalid Docker path: {self.docker_path}')
+
+    logger.info('Building Docker image...')
+    self._client.images.build(
+        path=self.docker_path,
+        tag=self.image,
+        rm=True,
+    )
+    logger.info('Docker image: %s built.', self.image)",false,not self.docker_path,"not isinstance(value, str) and (not isinstance_name in _is",20
+234,"def _create_relevant_node(
+        self, node: Dict[str, Any], relevance_score: float, reason: str
+    ) -> Dict[str, Any]:
+        
+        relevant_node = {
+            ""id"": node[""id""],
+            ""name"": node[""name""],
+            ""type"": node[""type""],
+            ""relevance_score"": relevance_score,
+            ""reason"": reason,
+            ""children"": [],
+        }
+
+        for field in [""file_path"", ""start_line"", ""end_line"", ""relationship""]:
+            if <mask_if>:
+                relevant_node[field] = node[field]
+
+        return relevant_node",false,field in node,"not isinstance(value, str) and (not isinstance_name in _is",18
+235,"def get_speaker_selection_result(self, groupchat: ""GroupChat"") -> Optional[Union[Agent, str]]:
+        
+        if <mask_if>:
+            # Find the agent by name in the groupchat
+            for agent in groupchat.agents:
+                if agent.name == self.agent_name:
+                    return agent
+            raise ValueError(f""Agent '{self.agent_name}' not found in groupchat."")
+        elif self.speaker_selection_method is not None:
+            return self.speaker_selection_method
+        elif self.terminate is not None and self.terminate:
+            return None
+        else:
+            raise ValueError(
+                ""Unable to establish speaker selection result. No terminate, agent, or speaker selection method provided.""
+            )",false,self.agent_name is not None,"not isinstance(value, str) and (not is not None)) == '",29
+236,"def file_uri_to_path(file_uri: str) -> Tuple[str | None, str]:
+    
+    parsed = urlparse(file_uri)
+    if <mask_if>:
+        raise ValueError(f""Not a file URL: {file_uri}"")
+
+    netloc = parsed.netloc if parsed.netloc else None
+    path = os.path.abspath(url2pathname(parsed.path))
+    return netloc, path",false,"parsed.scheme != ""file""","not isinstance(value, str) and (not isinstance_name in _is",0
+238,"def context(self) -> ""Context"":
+        
+        # First try instance context
+        if <mask_if>:
+            return self._context
+
+        try:
+            # Fall back to global context if available
+            from mcp_agent.core.context import get_current_context
+
+            return get_current_context()
+        except Exception as e:
+            raise RuntimeError(
+                f""No context available for {self.__class__.__name__}. ""
+                ""Either initialize MCPApp first or pass context explicitly.""
+            ) from e",false,self._context is not None,not os.path.exists(path) and (not 'path.path,22
+241,"def update_presigned_url(self, presigned_url, base_url):
+        
+        #To Do: If Proxy URL has domain name how do we handle such cases
+        
+        presigned_parts = urlparse(presigned_url)
+        base_parts = urlparse(base_url)
+        # Check if base_url contains localhost or an IP address
+        if <mask_if>:
+            new_netloc = base_parts.hostname  # Extract domain from base_url
+            if base_parts.port:  # Add port if present in base_url
+                new_netloc += f"":{base_parts.port}""
+            updated_parts = presigned_parts._replace(netloc=new_netloc)
+            return urlunparse(updated_parts)
+        return presigned_url",false,"re.match(r'^(localhost|\d{1,3}(\.\d{1,3}){3})$', base_parts.hostname)",not os.path.exists(path) and (not isinstance(path.,0
+243,"def resolve(self, override: ModelSettings | None) -> ModelSettings:
+        
+        if <mask_if>:
+            return self
+
+        changes = {
+            field.name: getattr(override, field.name)
+            for field in fields(self)
+            if getattr(override, field.name) is not None
+        }
+        return replace(self, **changes)",false,override is None,"not isinstance(value, str) and (not is None)) == 'name",17
+245,"def _format_child_blocks(
+        self, block_content: dict, block: dict, block_type: str, page_breadcrumbs: List[Breadcrumb]
+    ) -> str:
+        
+        if <mask_if>:
+            title = block_content.get(""title"", ""Untitled Page"")
+            return f""馃搫 **[{title}]** (Child Page)""
+        else:  # child_database
+            return self._format_child_database_block(block_content, block, page_breadcrumbs)",false,"block_type == ""child_page""","not isinstance(value, str) and (not isinstance_name in _is",0
+247,"def get_api_version(cls) -> str:
+        
+        logger.debug(""Retrieving DeepSeek Azure API version from config"")
+        provider_config = CONFIG.llm_endpoints.get(""deepseek_azure"")
+        if <mask_if>:
+            logger.debug(f""DeepSeek Azure API version: {provider_config.api_version}"")
+            return provider_config.api_version
+        logger.warning(""DeepSeek Azure API version not found in config"")
+        return None",false,provider_config and provider_config.api_version,"not isinstance(value, str) and (not is None)) == 'name",17
+248,"def _update_analyze_status_failed(self, doc_id: int) -> None:
+        
+        try:
+            with self._repository._db.session() as session:
+                document = session.get(self._repository.model, doc_id)
+                if <mask_if>:
+                    document.analyze_status = ProcessStatus.FAILED
+                    session.commit()
+                    logger.debug(f""Updated analyze status for document {doc_id} to FAILED"")
+                else:
+                    logger.warning(f""Document not found with id: {doc_id}"")
+        except Exception as e:
+            logger.error(f""Error updating document analyze status: {str(e)}"")",false,document,not os.path.exists(path) and (not isinstance(path.,0
+249,"def matches(self, uri: str) -> dict[str, Any] | None:
+        
+        # Convert template to regex pattern
+        pattern = self.uri_template.replace(""{"", ""(?P<"").replace(""}"", "">[^/]+)"")
+        match = re.match(f""^{pattern}$"", uri)
+        if <mask_if>:
+            return match.groupdict()
+        return None",false,match,"not isinstance(value, str) and (not is not None)) == '",0
+250,"def _retry_if_not_cancelled_and_failed(retry_state):
+    
+    if <mask_if>:
+        exception = retry_state.outcome.exception()
+        # Don't retry on CancelledError
+        if isinstance(exception, asyncio.CancelledError):
+            logger.debug(""Operation was cancelled, not retrying"")
+            return False
+        # Retry on network related errors
+        if isinstance(
+            exception, httpx.HTTPError | ConnectionError | ValueError | TimeoutError
+        ):
+            logger.warning(f""Network error occurred: {exception}, will retry"")
+            return True
+    # Don't retry on success
+    return False",false,retry_state.outcome.failed,"not isinstance(value, str) and (not isinstance_name in _is",0
+251,"def validate_config_values(self):
+        
+        for key, value in self.__dict__.items():
+            if <mask_if>:
+                raise ValueError(f""Value for '{key}' must not be a dictionary (depth 0 only)"")
+        return self",false,"isinstance(value, dict)","not isinstance(value, str) and (not isinstance_name in _get",20
+259,"def save_report(report, filename=None):
+    
+    if <mask_if>:
+        filename = f""test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt""
+    with open(filename, 'w') as file:
+        file.write(report)
+    print(f""Report saved to {os.path.abspath(filename)}"")",false,filename is None,"not isinstance(value, str) and (not isinstance_name in _is",0
+260,"def initialize_cache(self, num_gpu_blocks: int, num_cpu_blocks: int) -> None:
+        
+
+        # NOTE: We log here to avoid multiple logs when number of workers is
+        # greater than one. We could log in the engine, but not all executors
+        # have GPUs.
+        logger.info(""# GPU blocks: %d, # CPU blocks: %d"", num_gpu_blocks, num_cpu_blocks)
+
+        self.cache_config.num_gpu_blocks = num_gpu_blocks
+        self.cache_config.num_cpu_blocks = num_cpu_blocks
+
+        if <mask_if>:
+            print(
+                f'before init cache memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB'
+            )
+        self.worker.initialize_cache(num_gpu_blocks=num_gpu_blocks, num_cpu_blocks=num_cpu_blocks)
+        if torch.distributed.get_rank() == 0:
+            print(
+                f'after init cache memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB'
+            )",false,torch.distributed.get_rank() == 0,"not isinstance(value, str) and (not is None)) == 'name",17
+261,"def get_db_context():
+    
+    if <mask_if>:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=""Database manager not initialized"",
+        )
+    try:
+        yield _db_manager
+    except Exception as e:
+        logger.error(f""Database operation failed: {str(e)}"")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=""Database operation failed"",
+        ) from e",false,not _db_manager,"not isinstance(value, str) and (not isinstance_name in _is",20
+262,"def get_processor(cls, file_type: FileType) -> Type[BaseFileProcessor]:
+        
+        if <mask_if>:
+            cls.init()
+        print(f""Current registered processors: {cls._processors}"")
+        if file_type not in cls._processors:
+            raise ValueError(f""No processor found for {file_type}"")
+        return cls._processors[file_type]",false,not cls._initialized,"not isinstance(value, str) and (not isinstance_name in _get",20
+263,"def tf_roll_out(
+    agent: Agent, env: ScriptBrowserEnv, config_file: str
+) -> list[Any]:
+    
+    obs, state_info = env.reset(options={""config_file"": config_file})
+
+    trajectory: list[Any] = [{""observation"": obs, ""info"": state_info}]
+    while True:
+        action = agent.next_action(
+            trajectory=trajectory, intent="""", meta_data={}
+        )
+        trajectory.append(action)
+        if <mask_if>:
+            break
+
+        # preceed to next action
+        obs, reward, terminated, truncated, info = env.step(action)
+        state_info = {""observation"": obs, ""info"": info}
+        trajectory.append(state_info)
+
+    return trajectory",false,"action[""action_type""] == ActionTypes.STOP","not isinstance(value, str) and (not isinstance_name in _is",0
+264,"def show_permission_dialog(code: str, action_description: str):
+    
+    if <mask_if>:
+        result = os.system(
+            f'osascript -e \'display dialog ""Do you want to execute this action?\n\n{code} which will try to {action_description}"" with title ""Action Permission"" buttons {{""Cancel"", ""OK""}} default button ""OK"" cancel button ""Cancel""\''
+        )
+        return result == 0
+    elif platform.system() == ""Linux"":
+        result = os.system(
+            f'zenity --question --title=""Action Permission"" --text=""Do you want to execute this action?\n\n{code}"" --width=400 --height=200'
+        )
+        return result == 0
+    return False",false,"platform.system() == ""Darwin""","not isinstance(value, str) and (not isinstance_name in _is",0
+265,"def __launch_kwargs(self):
+        
+        launch_kwargs = {'headless': self.headless, 'ignore_default_args': self.harmful_default_args, 'channel': 'chrome' if self.real_chrome else 'chromium'}
+        if <mask_if>:
+            launch_kwargs.update({'args': self.__set_flags(), 'chromium_sandbox': True})
+
+        return launch_kwargs",false,self.stealth,not os.path.exists(path) and (not isinstance(path.,0
+266,"def clean_response(cls, content: str) -> Dict[str, Any]:
+        
+        cleaned = re.sub(r""```(?:json)?\s*"", """", content).strip()
+        match = re.search(r""(\{.*\})"", cleaned, re.S)
+        if <mask_if>:
+            logger.error(""Failed to parse JSON from content: %r"", content)
+            raise ValueError(""No JSON object found in response"")
+        return json.loads(match.group(1))",false,not match,"not isinstance(value, str) and (not isinstance_name in ['))",20
+267,"def make_request(prompt):
+    
+    payload = {""input"": prompt}
+    
+    try:
+        response = requests.post(
+            API_URL,
+            json=payload,
+            stream=True
+        )
+        
+        print(f""\nMaking request with prompt: '{prompt}'\n"")
+        print(""Raw response:"")
+        for line in response.iter_lines():
+            if <mask_if>:
+                print(line.decode('utf-8'))
+                
+    except Exception as e:
+        print(f""Error making request: {e}"")",false,line,"not isinstance(value, str) and (not isinstance_name in _get",0
+268,"def _merge_audio(files, output: str) -> bool:
+    
+    try:
+        # Create an empty audio segment
+        combined = AudioSegment.empty()
+        silence = AudioSegment.silent(duration=100)  # 100ms silence
+        
+        # Add audio files one by one
+        for file in files:
+            audio = AudioSegment.from_wav(file)
+            combined += audio + silence
+        combined += silence
+        combined.export(output, format=""wav"", parameters=[""-acodec"", ""pcm_s16le"", ""-ar"", ""16000"", ""-ac"", ""1""])
+        
+        if <mask_if>:
+            rprint(f""[red]Output file size is 0"")
+            return False
+            
+        rprint(f""[green]Successfully merged audio files"")
+        return True
+        
+    except Exception as e:
+        rprint(f""[red]Failed to merge audio: {str(e)}"")
+        return False",false,os.path.getsize(output) == 0,"not isinstance(value, str) and (not isinstance_name in _get",0
+269,"def pop_context():
+    
+    if <mask_if>:
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug(f""Popping context for atom {ctx.atom_name}"")
+        _context_stack.pop()
+    else:
+        logger.warning(""[DAG] Attempted to pop context, but stack was empty"")",false,_context_stack,"not isinstance(value, str) and (not isinstance_name in _is",0
+270,"def remove_obsolete_ckpt(path: str, global_step: int, save_limit: int = -1, directory_format: str = ""global_step_{}""):
+    
+    if <mask_if>:
+        return
+
+    if not os.path.exists(path):
+        return
+
+    pattern = re.escape(directory_format).replace(r""\{\}"", r""(\d+)"")
+    ckpt_folders = []
+    for folder in os.listdir(path):
+        if match := re.match(pattern, folder):
+            step = int(match.group(1))
+            if step < global_step:
+                ckpt_folders.append((step, folder))
+
+    ckpt_folders.sort(reverse=True)
+    for _, folder in ckpt_folders[save_limit - 1 :]:
+        folder_path = os.path.join(path, folder)
+        shutil.rmtree(folder_path, ignore_errors=True)
+        print(f""Removed obsolete checkpoint: {folder_path}"")",false,save_limit <= 0,"not isinstance(value, str) and (not isinstance_name in ['1",0
+271,"def _get_endpoint_config(self):
+        
+        endpoint_config = CONFIG.retrieval_endpoints.get(self.endpoint_name)
+        
+        if <mask_if>:
+            error_msg = f""No configuration found for endpoint {self.endpoint_name}""
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # Verify this is a Qdrant endpoint
+        if endpoint_config.db_type != ""qdrant"":
+            error_msg = f""Endpoint {self.endpoint_name} is not a Qdrant endpoint (type: {endpoint_config.db_type})""
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+            
+        return endpoint_config",false,not endpoint_config,not os.path.exists(path) and (not 'path.path,29
+272,"def _safe_save(self, output_dir: str):
+        
+        if <mask_if>:
+            torch.cuda.synchronize()
+            self.save_model(output_dir)
+            return
+    
+        state_dict = self.model.state_dict()
+        if self.args.should_save:
+            cpu_state_dict = {
+                key: value.cpu()
+                for key, value in state_dict.items()
+            }
+            del state_dict
+            self._save(output_dir, state_dict=cpu_state_dict)",false,self.deepspeed,not os.path.exists(path) and (not isinstance(path.,0
+273,"def validate_fold_input(fold_input: folding_input.Input):
+  
+  for i, chain in enumerate(fold_input.protein_chains):
+    if <mask_if>:
+      raise ValueError(f'Protein chain {i + 1} is missing unpaired MSA.')
+    if chain.paired_msa is None:
+      raise ValueError(f'Protein chain {i + 1} is missing paired MSA.')
+    if chain.templates is None:
+      raise ValueError(f'Protein chain {i + 1} is missing Templates.')
+  for i, chain in enumerate(fold_input.rna_chains):
+    if chain.unpaired_msa is None:
+      raise ValueError(f'RNA chain {i + 1} is missing unpaired MSA.')",false,chain.unpaired_msa is None,"not isinstance(value, str) and (not isinstance_name in _is",0
+274,"def get_unrealspeech_skill(
+    name: str,
+    store: SkillStoreABC,
+) -> UnrealSpeechBaseTool:
+    
+    if <mask_if>:
+        if name not in _cache:
+            _cache[name] = TextToSpeech(
+                skill_store=store,
+            )
+        return _cache[name]
+    else:
+        raise ValueError(f""Unknown UnrealSpeech skill: {name}"")",false,"name == ""text_to_speech""","not isinstance(value, str) and (not isinstance_name in _is",0
+275,"def handle_money(m: re.Match[str]) -> str:
+    
+
+    bill = ""dollar"" if m.group(2) == ""$"" else ""pound""
+    coin = ""cent"" if m.group(2) == ""$"" else ""pence""
+    number = m.group(3)
+
+    multiplier = m.group(4)
+    try:
+        number = float(number)
+    except:
+        return m.group()
+
+    if <mask_if>:
+        number *= -1
+
+    if number % 1 == 0 or multiplier != """":
+        text_number = f""{INFLECT_ENGINE.number_to_words(conditional_int(number))}{multiplier} {INFLECT_ENGINE.plural(bill, count=number)}""
+    else:
+        sub_number = int(str(number).split(""."")[-1].ljust(2, ""0""))
+
+        text_number = f""{INFLECT_ENGINE.number_to_words(int(round(number)))} {INFLECT_ENGINE.plural(bill, count=number)} and {INFLECT_ENGINE.number_to_words(sub_number)} {INFLECT_ENGINE.plural(coin, count=sub_number)}""
+
+    return text_number",false,"m.group(1) == ""-""","not isinstance(x, str) and (not isinstance_name in ['1",0
+277,"def print_model_size(model: nn.Module, name: Optional[str] = None) -> None:
+    
+    if <mask_if>:
+        n_params, scale = _get_model_size(model, scale=""auto"")
+        if name is None:
+            name = model.__class__.__name__
+
+        print(f""{name} contains {n_params:.2f}{scale} parameters."")",false,is_rank0(),"not isinstance(x, str) and (not isinstance_name in ['1",0
+279,"def _sanitize_input(self, args: tuple, kwargs: dict) -> dict:
+            
+
+            def sanitize_value(value):
+                if <mask_if>:
+                    return value
+                elif isinstance(value, list):
+                    return [sanitize_value(item) for item in value]
+                elif isinstance(value, dict):
+                    return {key: sanitize_value(val) for key, val in value.items()}
+                else:
+                    return str(value)  # Convert non-standard types to string
+
+            return {
+                ""args"": [sanitize_value(arg) for arg in args],
+                ""kwargs"": {key: sanitize_value(val) for key, val in kwargs.items()},
+            }",false,"isinstance(value, (int, float, bool, str))","not isinstance(value, str) and (not isinstance_name in _get",15
+280,"def cache_s3_files(dataset: Dataset, pdf_cache_location: str, num_proc: int = 32) -> Dataset:
+    
+
+    # Define the download function to use in parallel processing
+    def cache_file(example):
+        s3_path = example[""s3_path""]
+        if <mask_if>:
+            # Download the file and cache it locally
+            local_path = _cache_s3_file(s3_path, pdf_cache_location)
+            return {""local_pdf_path"": local_path}
+        return {""local_pdf_path"": None}
+
+    # Map the caching function to the dataset (with parallelism if needed)
+    dataset = dataset.map(cache_file, num_proc=num_proc, load_from_cache_file=False)
+
+    return dataset",false,s3_path,"not isinstance(value, str) and (not isinstance_name in _is",0
+287,"def delete_integration_credential(mapper, connection, target):
+    
+    if <mask_if>:
+        # Get the session
+        session = Session.object_session(target)
+        if session:
+            # If we're in a session, use the session to delete the IntegrationCredential
+            from airweave.models.integration_credential import IntegrationCredential
+
+            credential = session.get(IntegrationCredential, target.integration_credential_id)
+            if credential:
+                session.delete(credential)
+        else:
+            # If we're not in a session, use the connection directly
+            connection.execute(
+                f""DELETE FROM integration_credential WHERE id = '{target.integration_credential_id}'""  # noqa: E501
+            )",false,target.integration_credential_id,"not isinstance(value, str) and (not isinstance_name in _is",0
+288,"def analyze_schema_types(filename: str) -> Counter:
+    
+    all_types = Counter()
+    
+    with open(filename) as f:
+        for line in f:
+            items = line.strip().split('\t')
+            if <mask_if>:
+                continue
+            js = json.loads(items[1])
+            try:
+                all_types.update(extract_types(js))
+            except json.JSONDecodeError:
+                print(f""Warning: Could not parse JSON line: {line[:100]}..."")
+                continue
+            
+    return all_types",false,len(items) < 2,"not isinstance(value, str) and (not isinstance_name in _is",0
+289,"def create_default_config(self) -> bool:
+        
+        try:
+            if <mask_if>:
+                return True
+                
+            default_config = {
+                ""mcpServers"": {},
+                ""log_level"": ""INFO""
+            }
+            
+            self.config_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(self.config_path, 'w') as f:
+                json.dump(default_config, f, indent=2)
+                
+            logger.info(f""Created default configuration at {self.config_path}"")
+            return True
+            
+        except Exception as e:
+            logger.error(f""Error creating default configuration: {e}"")
+            return False",false,self.config_path.exists(),not os.path.exists(path) and (not isinstance(path.,0
+291,"def save_fid_stats(paths, batch_size, device, dims, num_workers=1):
+    
+    if <mask_if>:
+        raise RuntimeError(""Invalid path: %s"" % paths[0])
+
+    if os.path.exists(paths[1]):
+        raise RuntimeError(""Existing output file: %s"" % paths[1])
+
+    block_idx = InceptionV3.BLOCK_INDEX_BY_DIM[dims]
+
+    model = InceptionV3([block_idx]).to(device)
+
+    print(f""Saving statistics for {paths[0]}"")
+
+    m1, s1 = compute_statistics_of_path(paths[0], model, batch_size, dims, device, num_workers, flag=""ref"")
+    np.savez_compressed(paths[1], mu=m1, sigma=s1)",false,not os.path.exists(paths[0]),"not isinstance(x, str) and (not isinstance_name in ['1",20
+292,"def pytest_sessionfinish(session, exitstatus):
+    
+    cov_dir = os.path.abspath(""."")
+    if <mask_if>:
+        try:
+            cov = coverage.Coverage()
+            cov.combine(data_paths=[cov_dir], strict=True)
+            cov.save()
+        except Exception as e:
+            print(f""Error combining coverage data: {e}"", file=sys.stderr)",false,"exitstatus == 0 and os.environ.get(""COVERAGE_PROCESS_START"")","not isinstance(value, str) and (not isinstance_name in _is",15
+293,"def _build_param_buffer(self, pp_rank):
+        
+        if <mask_if>:
+            from verl.utils.memory_buffer import MemoryBuffer
+
+            # The code here is very hard-coded, based on the following assumptions:
+            # 1. `len(_this_rank_models) == 1`
+            # 2. `_this_rank_models[0]` is a instance of `DistributedDataParallel` and `use_distributed_optimizer=True`
+            # 3. Only bfloat16 data type is used in parameters
+            source = self._this_rank_models[0].buffers[0].param_data
+            self.memory_buffers[pp_rank] = {torch.bfloat16: MemoryBuffer(source.numel(), source.numel(), torch.bfloat16, source)}
+        else:
+            model = self.pp_models[pp_rank]
+            weight_buffer_meta = get_weight_buffer_meta_from_module(model)
+            self.memory_buffers[pp_rank] = build_memory_buffer(weight_buffer_meta)",false,pp_rank == self._pp_rank,"not isinstance(value, str) and (not isinstance_name in ['))",0
+294,"def MMMU_preproc(data):
+    
+    print(""Preprocessing MMMU dataset..."")
+    cnt = 0
+    As, Bs, Ans = list(data['A']), list(data['B']), list(data['answer'])
+    lt = len(data)
+    for i in range(lt):
+        if <mask_if>:
+            As[i] = Ans[i]
+            Bs[i] = 'Other Answers'
+            cnt += 1
+    print(f'During MMMU_preproc in Evaluation, {cnt} open questions are re-formulated to multi-choice ones.')
+    data['A'] = As
+    data['B'] = Bs
+    return data",false,pd.isna(As[i]),"not isinstance(value, str) and (not isinstance, dict) == 0",0
+295,"def parse_expected_output(cls, v):
+        
+        if <mask_if>:
+            try:
+                return json.loads(v)
+            except json.JSONDecodeError as e:
+                logger.error(f""Error parsing expected_output: {str(e)}"")
+                raise ValueError(""Invalid JSON format for expected_output"")
+        return v",false,"isinstance(v, str)","not isinstance(value, str) and (not isinstance_name in _get",20
+296,"def get_latest_files(directory: str, file_types: list = ['.webm', '.zip']) -> Dict[str, Optional[str]]:
+    
+    latest_files: Dict[str, Optional[str]] = {ext: None for ext in file_types}
+
+    if <mask_if>:
+        os.makedirs(directory, exist_ok=True)
+        return latest_files
+
+    for file_type in file_types:
+        try:
+            matches = list(Path(directory).rglob(f""*{file_type}""))
+            if matches:
+                latest = max(matches, key=lambda p: p.stat().st_mtime)
+                # Only return files that are complete (not being written)
+                if time.time() - latest.stat().st_mtime > 1.0:
+                    latest_files[file_type] = str(latest)
+        except Exception as e:
+            print(f""Error getting latest {file_type} file: {e}"")
+
+    return latest_files",false,not os.path.exists(directory),"not isinstance(x, str) and (not isinstance_name in ['1",20
+298,"def _trajectory_to_text(trajectory: Dict[str, Any]) -> str:
+    
+    text = ""AGENT TRAJECTORY\n"" + ""=""*50 + ""\n\n""
+    
+    # Add answers/responses
+    if <mask_if>:
+        for i, answer in enumerate(trajectory[""answer""]):
+            text += f""STEP {i+1}:\n""
+            text += f""Agent Response:\n{answer}\n\n""
+    
+    # Add parsed responses if available
+    if ""parsed_response"" in trajectory and isinstance(trajectory[""parsed_response""], list):
+        text += ""\nPARSED RESPONSES\n"" + ""-""*50 + ""\n\n""
+        for i, parsed in enumerate(trajectory[""parsed_response""]):
+            text += f""Step {i+1} Parsed:\n""
+            for key, value in parsed.items():
+                if value:
+                    text += f""  {key}: {value}\n""
+            text += ""\n""
+    
+    return text",false,"""answer"" in trajectory and isinstance(trajectory[""answer""], list)","not isinstance(value, str) and (not isinstance_name in _is",29
+300,"def _run(self, **kwargs) -> str:
+        
+        if <mask_if>:
+            return ""No MCP server is currently active, so there's nothing to disconnect from.""
+
+        server_name = self.server_manager.active_server
+        try:
+            # Clear the active server
+            self.server_manager.active_server = None
+
+            # Note: We're not actually closing the session here, just 'deactivating'
+            # This way we keep the session cache without requiring reconnection if needed again
+
+            return f""Successfully disconnected from MCP server '{server_name}'.""
+        except Exception as e:
+            logger.error(f""Error disconnecting from server '{server_name}': {e}"")
+            return f""Failed to disconnect from server '{server_name}': {str(e)}""",false,not self.server_manager.active_server,not os.path.exists(path) and (not isinstance(path.,29
+301,"def on_signal(self, signal_name: str) -> Callable:
+        
+
+        def decorator(func: Callable) -> Callable:
+            unique_name = f""{signal_name}_{uuid.uuid4()}""
+
+            async def wrapped(value: SignalValueT):
+                try:
+                    if <mask_if>:
+                        await func(value)
+                    else:
+                        func(value)
+                except Exception as e:
+                    # Log the error but don't fail the entire signal handling
+                    print(f""Error in signal handler {signal_name}: {str(e)}"")
+
+            self._handlers.setdefault(signal_name, []).append((unique_name, wrapped))
+            return wrapped
+
+        return decorator",false,asyncio.iscoroutinefunction(func),"not isinstance(value, str) and (not isinstance_name in _get",0
+307,"def pdf_path():
+    
+    pdf_path = Path(PDF_FILE_PATH)
+    if <mask_if>:
+        pytest.skip(f""Test PDF file not found at {pdf_path}"")
+    return pdf_path",false,not pdf_path.exists(),"not isinstance(value, str) and (not isinstance_name in _is",20
+308,"def download_dataset(self) -> None:
+        
+        assert self.data_dir is not None
+        if <mask_if>:
+            os.makedirs(self.data_dir, exist_ok=True)
+
+        logging.info(f""[WebGames] Downloading dataset into '{self.data_dir}'..."")
+
+        # Use pandas to download and save the dataset
+        df = pd.read_json(  # type: ignore
+        )
+        output_path = os.path.join(self.data_dir, self.TEST_FILE)
+        df.to_json(output_path, orient=""records"", lines=True)  # type: ignore
+
+        logging.info(""[WebGames] Dataset downloaded."")",false,not os.path.exists(self.data_dir),not os.path.exists(path) and (not is not None),22
+310,"def get_ratelimit_middleware_instance(fastapi_app: FastAPI) -> RateLimitMiddleware:
+    
+    layer = fastapi_app.middleware_stack
+    while layer is not None:
+        if <mask_if>:
+            return cast(RateLimitMiddleware, layer)
+        layer = getattr(layer, ""app"", None)
+
+    assert False, f""{RateLimitMiddleware.__name__} instance not found""",false,layer.__class__.__name__ == RateLimitMiddleware.__name__,"not isinstance(value, str) and (not isinstance_name in _is",0
+312,"def plot_total_conversation_time(results, title, filename):
+    
+    df = pd.DataFrame(results)
+    df = df[(df['elapsed'].notnull()) & (df['turn'] == 'ALL')]
+    if <mask_if>:
+        print(f""No successful results to plot for {title}."")
+        return
+    plt.figure(figsize=(10, 6))
+    ax = plt.gca()
+    df.boxplot(column='elapsed', by=['provider'], ax=ax)
+    plt.title(title)
+    plt.suptitle("""")
+    plt.ylabel('Total Conversation Time (s)')
+    plt.xlabel('Provider')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(filename)
+    plt.show()",false,df.empty,"not isinstance(value, str) and (not isinstance_name in _is",0
+313,"def _extract_tool_calls(self, trajectory: dict) -> list:
+        
+        tool_calls = []
+        for message in trajectory.get(""messages"", []):
+            if <mask_if>:
+                for tool_call in message.get(""tool_calls"", []):
+                    if tool_call.get(""function"", {}).get(""name"") and tool_call.get(""function"", {}).get(""arguments""):
+                        tool_calls.append({
+                            ""name"": tool_call[""function""][""name""],
+                            ""arguments"": json.loads(tool_call[""function""][""arguments""])
+                        })
+        return tool_calls",false,"message.get(""role"") == ""assistant"" and message.get(""tool_calls"")",not os.path.exists(path) and (not 'path.path,20
+314,"def close(self):
+        
+        try:
+            # Milvus client doesn't have an explicit close method, but we can release the collection
+            if <mask_if>:
+                self.client.release_collection(collection_name=self.collection_name)
+        except Exception as e:
+            logger.error(f""Error closing Milvus connection: {e}"")",false,"hasattr(self.client, ""release_collection"")",not os.path.exists(path) and (not 'path.path,0
+317,"def print_summary(self):
+        
+        summary = self.get_summary()
+        total = summary.get(""total_duration"", 0)
+        
+        print(""\n===== SPEED PROFILE SUMMARY ====="")
+        print(f""Total execution time: {total:.2f} seconds"")
+        print(""\n--- Component Breakdown ---"")
+        
+        # Print each component's timing
+        for name, data in self.timings.items():
+            if <mask_if>:
+                percent = data[""total""] / total * 100 if total > 0 else 0
+                print(f""{name}: {data['total']:.2f}s ({percent:.1f}%) - ""
+                      f""{data['count']} calls, avg {data['total'] / data['count']:.3f}s per call"")
+        
+        print(""\n=============================="")",false,"name != ""total""",not os.path.exists(path) and (not isinstance(path.,0
+322,"def create_tool_result_message(tool_result, tool_name, status=""success""):
+        
+        from google.genai import types
+
+        if <mask_if>:
+            function_response = {""result"": tool_result}
+        else:
+            function_response = {""error"": tool_result}
+
+        return types.Content(
+            role=""tool"",
+            parts=[
+                types.Part.from_function_response(
+                    name=tool_name, response=function_response
+                )
+            ],
+        )",false,"status == ""success""","not isinstance(value, str) and (not isinstance_name in _get",0
+323,"def _merge_by_placement(self, tensors: list[torch.Tensor], placement: Placement) -> torch.Tensor:
+        
+        if <mask_if>:
+            return tensors[0]
+        elif placement.is_partial():
+            raise NotImplementedError(""Partial placement is not supported yet"")
+        elif placement.is_shard():
+            return torch.cat(tensors, dim=placement.dim).contiguous()
+
+        raise NotImplementedError(f""Unsupported placement: {placement}"")",false,placement.is_replicate(),"not isinstance(value, str) and (not isinstance_name in _is",0
+324,"def analyze_news_sentiment(news_items: list) -> str:
+    
+    if <mask_if>:
+        return ""No news data available""
+    
+    # Just return a simple count for now - in a real implementation, this would use NLP
+    return f""Qualitative review of {len(news_items)} recent news items would be needed""",false,not news_items or len(news_items) == 0,"not isinstance(value, str) and (not isinstance_name in _is",14
+328,"def deepseek_fn(self, history, verbose=False):
+        
+        if <mask_if>:
+            raise Exception(""Deepseek (API) is not available for local use. Change config.ini"")
+        try:
+            response = client.chat.completions.create(
+                model=""deepseek-chat"",
+                messages=history,
+                stream=False
+            )
+            thought = response.choices[0].message.content
+            if verbose:
+                print(thought)
+            return thought
+        except Exception as e:
+            raise Exception(f""Deepseek API error: {str(e)}"") from e",false,self.is_local,"not isinstance(value, str) and (not isinstance_name in _get",0
+329,"def copy_old_config_names_to_new(self) -> Self:
+		
+		if <mask_if>:
+			self.window_size = self.window_size or {}
+			self.window_size['width'] = (self.window_size or {}).get('width') or self.window_width or 1280
+			self.window_size['height'] = (self.window_size or {}).get('height') or self.window_height or 1100
+		return self",false,self.window_width or self.window_height,not os.path.exists(path) and (not is_path.,0
+330,"def _prepare_batch_get_documents_request(
+        self, document_ids: List[str], folder_name: Optional[Union[str, List[str]]], end_user_id: Optional[str]
+    ) -> Dict[str, Any]:
+        
+        if <mask_if>:
+            request = {""document_ids"": document_ids}
+            if folder_name:
+                request[""folder_name""] = folder_name
+            if end_user_id:
+                request[""end_user_id""] = end_user_id
+            return request
+        return document_ids",false,folder_name or end_user_id,"not isinstance(value, str) and (not isinstance_name in _is",0
+334,"def load_jsonl_files(input_dir):
+    
+    jsonl_files = list(Path(input_dir).glob(""*.jsonl""))
+    if <mask_if>:
+        print(f""No JSONL files found in {input_dir}"")
+        return []
+
+    print(f""Found {len(jsonl_files)} JSONL files: {[f.name for f in jsonl_files]}"")
+    return jsonl_files",false,not jsonl_files,"not isinstance(value, str) and (not isinstance_name in _get",20
+336,"def _load_environment(self) -> None:
+        
+        env_file = self.app_root / "".env""
+        if <mask_if>:
+            # logger.info(f""Loading environment variables from {env_file}"")
+            load_dotenv(str(env_file))",false,env_file.exists(),not os.path.exists(path) and (not is not None),0
+337,"def add_tool(self, tool: BaseTool):
+        
+        if <mask_if>:
+            logger.warning(f""Tool {tool.name} already exists in collection, skipping"")
+            return self
+
+        self.tools += (tool,)
+        self.tool_map[tool.name] = tool
+        return self",false,tool.name in self.tool_map,"not isinstance(value, str) and (not isinstance_name in _is",18
+338,"def _generate_batch_response(self, text, system_message, provider, model_config, api_key, api_base):
+        
+        MAX_RETRIES = 3
+        
+        for attempt in range(MAX_RETRIES):
+            try:
+                if <mask_if>:
+                    messages = [{'role': 'user', 'content': system_message + text}]
+                    response = proxy_api_completion(messages=messages, model=model_config[""model""], api_base=api_base)
+                    # response = proxy_call.api_completion(messages=messages, model=model_config[""model""], api_base=api_base)
+                    return pd.DataFrame(ast.literal_eval(response[0]))
+                else:
+                    return self._generate_llm_response(text, system_message, model_config, api_key)
+            except (json.JSONDecodeError, ValueError) as e:
+                if attempt == MAX_RETRIES - 1:
+                    raise Exception(f""Failed to generate valid response after {MAX_RETRIES} attempts: {str(e)}"")
+                continue",false,"provider == ""gemini"" and api_base","not isinstance(value, str) and (not isinstance_name in _is",15
+339,"def model_kwargs():
+    
+    inference_url = settings.TEXT2VEC_INFERENCE_URL
+    if <mask_if>:
+        raise ValueError(""TEXT2VEC_INFERENCE_URL environment variable is not set"")
+    return {""inference_url"": inference_url}",false,not inference_url,"not isinstance(value, str) and (not isinstance_name in _is",20
+343,"def handle_js_message(client_id, message_type, data):
+        
+        if <mask_if>:
+            asyncio.create_task(  # noqa: RUF006
+                _service.handle_client_message(
+                    client_id, {""type"": message_type, ""data"": data}
+                )
+            )
+        return True",false,_service,"not isinstance(value, str) and (not isinstance_name in _get",0
+344,"def rename_state_dict(
+    old_prefix: str, new_prefix: str, state_dict: Dict[str, torch.Tensor]
+):
+    
+    # need this list not to break the dict iterator
+    old_keys = [k for k in state_dict if k.startswith(old_prefix)]
+    if <mask_if>:
+        logging.warning(f""Rename: {old_prefix} -> {new_prefix}"")
+    for k in old_keys:
+        v = state_dict.pop(k)
+        new_k = k.replace(old_prefix, new_prefix)
+        state_dict[new_k] = v",false,len(old_keys) > 0,"not isinstance(value, str) and (not isinstance_name in _is",0
+347,"def _get_loggable_messages(self, messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        
+        loggable_messages = []
+        for msg in messages:
+            if <mask_if>:
+                new_content = []
+                for content in msg[""content""]:
+                    if content.get(""type"") == ""image"":
+                        new_content.append(
+                            {""type"": ""image"", ""image_url"": {""url"": ""[BASE64_IMAGE_DATA]""}}
+                        )
+                    else:
+                        new_content.append(content)
+                loggable_messages.append({""role"": msg[""role""], ""content"": new_content})
+            else:
+                loggable_messages.append(msg)
+        return loggable_messages",false,"isinstance(msg.get(""content""), list)","not isinstance(value, str) and (not isinstance_name in _is",0
+348,"def _build_split_documents(row, chunks: List[str]) -> List[dict[str, Any]]:
+    
+    documents: List[dict] = []
+
+    for i, text in enumerate(chunks):
+        if <mask_if>:
+            continue
+
+        metadata = row.metadata if hasattr(row, ""metadata"") and isinstance(row.metadata, dict) else {}
+        metadata = copy.deepcopy(metadata)
+
+        metadata[""content""] = text
+
+        documents.append({""document_type"": ContentTypeEnum.TEXT.value, ""metadata"": metadata, ""uuid"": str(uuid.uuid4())})
+
+    return documents",false,text is None or not text.strip(),"not isinstance(value, str) and (not isinstance_name in _is",14
+354,"def try_add_cuda_lib_path():
+    
+    required_submodules = [""cuda_runtime"", ""cublas""]
+    cuda_versions = [""11"", ""12""]
+
+    module_spec = find_spec(""nvidia"")
+    if <mask_if>:
+        return
+
+    nvidia_lib_root = Path(module_spec.submodule_search_locations[0])
+
+    for submodule in required_submodules:
+        for ver in cuda_versions:
+            try:
+                package_name = f""nvidia_{submodule}_cu{ver}""
+                _ = distribution(package_name)
+
+                lib_path = nvidia_lib_root / submodule / ""bin""
+                os.add_dll_directory(str(lib_path))
+                os.environ[""PATH""] = str(lib_path) + \
+                    os.pathsep + os.environ[""PATH""]
+                logging.debug(f""Added {lib_path} to PATH"")
+            except PackageNotFoundError:
+                logging.debug(f""{package_name} not found"")",false,not module_spec,"not isinstance(value, str) and (not isinstance_name in _is",20
+356,"def parse_size(size):
+    
+    units = {""KB"": 1024, ""MB"": 1024**2, ""GB"": 1024**3}
+    if <mask_if>:
+        return int(size)
+    unit = size[-2:].upper()
+    number = size[:-2]
+    if unit in units and number.isdigit():
+        return int(number) * units[unit]
+    raise ValueError(""Size must be in the format <number>[KB|MB|GB]."")",false,size.isdigit(),"not isinstance(value, str) and (not isinstance_name in [' '",0
+360,"def package_template_features(
+    *,
+    hit_features: Sequence[Mapping[str, Any]],
+    include_ligand_features: bool,
+) -> Mapping[str, Any]:
+  
+
+  features_to_include = set(_POLYMER_FEATURES)
+  if <mask_if>:
+    features_to_include.update(_LIGAND_FEATURES)
+
+  features = {
+      feat: [single_hit_features[feat] for single_hit_features in hit_features]
+      for feat in features_to_include
+  }
+
+  stacked_features = {}
+  for k, v in features.items():
+    if k in _POLYMER_FEATURES:
+      v = np.stack(v, axis=0) if v else np.array([], dtype=_POLYMER_FEATURES[k])
+    stacked_features[k] = v
+
+  return stacked_features",false,include_ligand_features,"not isinstance(value, str) and (not isinstance_name in ['1",0
+361,"def rewrite_schema_for_sqlglot(
+        cls, schema: str | SQLGlotSchemaType | BirdSampleType
+    ) -> SQLGlotSchemaType:
+        
+        schema_dict = None
+        if <mask_if>:
+            if isinstance(schema, str):
+                schema = cls.extract_schema_from_ddls(schema)
+                schema_dict = cls.format_schema(schema)
+            elif _isinstance_sqlglot_schema_type(schema):
+                schema_dict = schema
+            elif _isinstance_bird_sample_type(schema):
+                schema_dict = cls._get_schema_from_bird_sample(schema)
+            elif _isinstance_ddl_schema_type(schema):
+                schema_dict = cls.format_schema(schema)
+            else:
+                raise TypeError(f""Unsupported schema type: {type(schema)}"")
+        return schema_dict",false,schema,"not isinstance(value, str) and (not isinstance_name in _is",0
+362,"def get_config_defaults() -> Dict[str, Any]:
+    
+    defaults = {
+        'site': 'all',
+        'model': 'gpt-4o-mini',
+        'generate_mode': 'list', 
+        'retrieval_backend': CONFIG.preferred_retrieval_endpoint,
+        'prev': []
+    }
+    
+    # Try to get preferred model from LLM config
+    if <mask_if>:
+        llm_provider = CONFIG.get_llm_provider()
+        if llm_provider and llm_provider.models:
+            # Use the 'low' model as default for testing
+            defaults['model'] = llm_provider.models.low or defaults['model']
+    
+    return defaults",false,"hasattr(CONFIG, 'preferred_llm_provider') and CONFIG.preferred_llm_provider","not isinstance(value, str) and (not isinstance_name in _is",17
+365,"def format(self) -> str:
+        
+        if <mask_if>:
+            return ""There were no ingestion or query tasks detected.""
+
+        instructions = ""Tasks:\n\n""
+        order = 1
+
+        if len(self.ingestions) > 0:
+            instructions += ""Ingestions:\n""
+            for ingestion in self.ingestions:
+                instructions += f""{order}: {ingestion.path_or_url}\n""
+                order += 1
+
+            instructions += ""\n""
+
+        if len(self.queries) > 0:
+            instructions += ""Queries:\n""
+            for query in self.queries:
+                instructions += f""{order}: {query.query}\n""
+                order += 1
+
+        return instructions",false,len(self.ingestions) == 0 and len(self.queries) == 0,not os.path.exists(path) and (not 'path.path,17
+367,"def _log_debug(self, message: str, **kwargs) -> None:
+        
+        if <mask_if>:
+            print(f""DEBUG: {message}"")
+            if kwargs:
+                print(json.dumps(kwargs, indent=2))",false,self.server.debug,"not isinstance(value, str) and (not is not None)) == '",0
+368,"def load_and_preprocess_image(image_path, target_img_size):
+    
+    image = cv2.imread(image_path)
+    if <mask_if>:
+        raise ValueError(f""Failed to load image from path: {image_path}"")
+
+    # Resize and pad the image to the target size
+    resized_image = resize_image(image, target_img_size)
+
+    # Normalize the image (assuming model expects normalized input)
+    normalized_image = resized_image.astype(np.float32) / 255.0
+
+    # Expand dimensions to match the model's input shape
+    input_data = np.expand_dims(normalized_image, axis=0)  # Add batch dimension
+    return resized_image, input_data",false,image is None,"not isinstance(value, str) and (not isinstance_name in ['))",0
+370,"def _prepare_toolset(self) -> None:
+    
+    # For each API, get the first version and the first spec of that version.
+    spec_str = self._apihub_client.get_spec_content(self._apihub_resource_name)
+    spec_dict = yaml.safe_load(spec_str)
+    if <mask_if>:
+      return
+
+    self.name = self.name or _to_snake_case(
+        spec_dict.get('info', {}).get('title', 'unnamed')
+    )
+    self.description = self.description or spec_dict.get('info', {}).get(
+        'description', ''
+    )
+    self._openapi_toolset = OpenAPIToolset(
+        spec_dict=spec_dict,
+        auth_credential=self._auth_credential,
+        auth_scheme=self._auth_scheme,
+        tool_filter=self.tool_filter,
+    )",false,not spec_dict,"not isinstance(value, str) and (not is None)) == 'name",18
+371,"def add_message_pair(self, user_message: str, assistant_message: str):
+        
+        if <mask_if>:
+            self.cache.append({""user"": user_message, ""assistant"": assistant_message})
+            self._save()",false,"not any(entry[""user""] == user_message for entry in self.cache)",not os.path.exists(path) and (not 'path.path,15
+372,"def clean_response(cls, content: str) -> Dict[str, Any]:
+        
+        cleaned = re.sub(r""```(?:json)?\s*"", """", content).strip()
+        match = re.search(r""(\{.*\})"", cleaned, re.S)
+        if <mask_if>:
+            logger.error(""Failed to parse JSON from content: %r"", content)
+            return {}
+        return json.loads(match.group(1))",false,not match,"not isinstance(value, str) and (not isinstance_name in _is",20
+373,"def _create_session(self) -> requests.Session:
+        
+        session = requests.Session()
+
+        # Configure automatic retries with exponential backoff
+        retry_strategy = Retry(
+            total=self.max_retries,
+            backoff_factor=self.retry_backoff_factor,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods={""HEAD"", ""GET"", ""POST"", ""OPTIONS""},
+        )
+
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+
+        # Set up headers
+        headers = {""Accept"": ""application/json""}
+        if <mask_if>:
+            headers[""x-api-key""] = self.api_key
+
+        session.headers.update(headers)
+
+        return session",false,self.api_key,not os.path.exists(path) and (not 'path.path,0
+374,"def _snowflake_to_iso(snowflake: str) -> str:
+        
+        if <mask_if>:
+            raise ValueError(f""Invalid snowflake ID: {snowflake}"")
+
+        # Discord epoch (2015-01-01)
+        discord_epoch = 1420070400000
+
+        # Convert ID to int and shift right 22 bits to get timestamp
+        timestamp_ms = (int(snowflake) >> 22) + discord_epoch
+
+        # Convert to datetime and format as ISO string
+        dt = datetime.fromtimestamp(timestamp_ms / 1000.0, tz=timezone.utc)
+        return dt.isoformat()",false,not DiscordRetrieveTool._is_snowflake(snowflake),"not isinstance(value, str) and (not isinstance_name in _get",20
+375,"def wait_for_health(url: str, timeout: int = 300) -> bool:
+    
+    print(f""Waiting for {url} to be healthy..."")
+    start_time = time.time()
+
+    while time.time() - start_time < timeout:
+        try:
+            response = requests.get(f""{url}/health"", timeout=5)
+            if <mask_if>:
+                print(""✓ Service is healthy"")
+                return True
+        except requests.exceptions.RequestException:
+            pass
+
+        time.sleep(2)
+        print(""."", end="""", flush=True)
+
+    print(""\n✗ Service health check timed out"")
+    return False",false,response.status_code == 200,"not isinstance(value, str) and (not isinstance_name in _is",0
+377,"def configure(cls, **kwargs):
+        
+        for key, value in kwargs.items():
+            key = key.strip().lower()
+            if hasattr(cls, key):
+                if key in cls.parser_keywords:
+                    setattr(cls, key, value)
+                else:
+                    # Yup, no fun allowed LOL
+                    raise AttributeError(f'Unknown parser argument: ""{key}""; maybe you meant {cls.parser_keywords}?')
+            else:
+                raise ValueError(f'Unknown parser argument: ""{key}""; maybe you meant {cls.parser_keywords}?')
+
+        if <mask_if>:
+            raise AttributeError(f'You must pass a keyword to configure, current keywords: {cls.parser_keywords}?')",false,not kwargs,"not isinstance(value, str) and (not isinstance_name in _get",20
+379,"def list_available(cls) -> List[str]:
+        
+        keys = list(Registrable._registry[cls].keys())
+        default = cls.default_implementation
+
+        if <mask_if>:
+            return keys
+        elif default not in keys:
+            raise ConfigurationError(
+                f""Default implementation {default} is not registered""
+            )
+        else:
+            return [default] + [k for k in keys if k != default]",false,default is None,"not isinstance(value, str) and (not isinstance_name in _get",0
+382,"def __str__(self) -> str:
+        
+        plan_str = """"
+        if <mask_if>:
+            plan_str += f""Task: {self.task}\n""
+        for i, step in enumerate(self.steps):
+            plan_str += f""{i}. {step.agent_name}: {step.title}\n   {step.details}\n""
+        return plan_str",false,self.task is not None,"not isinstance(value, str) and (not isinstance_name in _get",17
+385,"def cleanup_memory(self, force: bool = False) -> None:
+        
+        # Run Python garbage collection
+        gc.collect()
+        
+        # Empty CUDA cache if available
+        if <mask_if>:
+            torch.cuda.empty_cache()
+            
+        # Log memory status after cleanup
+        if force:
+            info = self.get_memory_info()
+            logger.info(
+                f""Memory after cleanup: RAM: {info['ram_used_gb']:.2f}GB / {info['ram_total_gb']:.2f}GB, ""
+                f""VRAM: {info.get('vram_used_gb', 0):.2f}GB / {info.get('vram_total_gb', 0):.2f}GB""
+            )",false,self.cuda_available,not os.path.exists(path) and (not isinstance(path.,0
+386,"def add_prompt(
+        self,
+        prompt: Prompt,
+    ) -> Prompt:
+        
+
+        # Check for duplicates
+        existing = self._prompts.get(prompt.name)
+        if <mask_if>:
+            if self.warn_on_duplicate_prompts:
+                logger.warning(f""Prompt already exists: {prompt.name}"")
+            return existing
+
+        self._prompts[prompt.name] = prompt
+        return prompt",false,existing,"not isinstance(value, str) and (not isinstance_name in _is",0
+387,"def save_model_settings(model, state):
+    
+    if <mask_if>:
+        yield (""Not saving the settings because no model is selected in the menu."")
+        return
+
+    user_config = shared.load_user_config()
+    model_regex = model + '$'  # For exact matches
+    if model_regex not in user_config:
+        user_config[model_regex] = {}
+
+    for k in ui.list_model_elements():
+        if k == 'loader' or k in loaders.loaders_and_params[state['loader']]:
+            user_config[model_regex][k] = state[k]
+
+    shared.user_config = user_config
+
+    output = yaml.dump(user_config, sort_keys=False)
+    p = Path(f'{shared.args.model_dir}/config-user.yaml')
+    with open(p, 'w') as f:
+        f.write(output)
+
+    yield (f""Settings for `{model}` saved to `{p}`."")",false,model == 'None',"not isinstance(value, str) and (not isinstance_name in _is",0
+390,"def get_target_module(obj: object) -> Optional[str]:
+    
+    if <mask_if>:
+        return None
+
+    fqn = f""{obj.__module__}.{obj.__name__}""
+    return _PDOC_MODULE_EXPORT_MAPPINGS.get(fqn)",false,"not hasattr(obj, ""__module__"")","not isinstance(value, str) and (not is None) == 'name",17
+391,"def validate_graph_fields(self) -> ""GraphPromptOverrides"":
+        
+        allowed_fields = {""entity_extraction"", ""entity_resolution""}
+        for field in self.model_fields:
+            if <mask_if>:
+                raise ValueError(f""Field '{field}' is not allowed in graph prompt overrides"")
+        return self",false,"field not in allowed_fields and getattr(self, field, None) is not None",not os.path.exists(path) and (not 'path.path,25
+393,"def _truncate_multimodal_text(self, contents: list[dict[str, Any]], n_tokens: int) -> list[dict[str, Any]]:
+        
+        tmp_contents = []
+        for content in contents:
+            if <mask_if>:
+                truncated_text = self._truncate_tokens(content[""text""], n_tokens)
+                tmp_contents.append({""type"": ""text"", ""text"": truncated_text})
+            else:
+                tmp_contents.append(content)
+        return tmp_contents",false,"content[""type""] == ""text""","not isinstance(value, str) and (not isinstance_name in _is",0
+394,"def format_validation_errors(errors: list) -> str:
+    
+    formatted_errors = []
+
+    for error in errors:
+        loc = error.get(""loc"", [])
+        msg = error.get(""msg"", """")
+        error_type = error.get(""type"", """")
+
+        # Build field path
+        field_path = "" -> "".join(str(part) for part in loc if part != ""body"")
+
+        # Format the error message with type information
+        if <mask_if>:
+            if error_type:
+                formatted_error = f""Field '{field_path}' ({error_type}): {msg}""
+            else:
+                formatted_error = f""Field '{field_path}': {msg}""
+        else:
+            formatted_error = msg
+
+        formatted_errors.append(formatted_error)
+
+    return ""; "".join(formatted_errors)",false,field_path,"not isinstance(value, str) and (not isinstance_name in _get",0
+395,"def check_hub_revision_exists(training_args: SFTConfig | GRPOConfig):
+    
+    if <mask_if>:
+        if training_args.push_to_hub_revision is True:
+            # First check if the revision exists
+            revisions = [rev.name for rev in list_repo_refs(training_args.hub_model_id).branches]
+            # If the revision exists, we next check it has a README file
+            if training_args.hub_model_revision in revisions:
+                repo_files = list_repo_files(
+                    repo_id=training_args.hub_model_id, revision=training_args.hub_model_revision
+                )
+                if ""README.md"" in repo_files and training_args.overwrite_hub_revision is False:
+                    raise ValueError(
+                        f""Revision {training_args.hub_model_revision} already exists. ""
+                        ""Use --overwrite_hub_revision to overwrite it.""
+                    )",false,repo_exists(training_args.hub_model_id),"not isinstance(value, str) and (not isinstance_name in _is",0
+396,"def save_partial_results(self, agent, task):
+        
+        try:
+            if <mask_if>:
+                task_client = self.tasks[task]
+                overall = task_client.calculate_overall(self.completions[agent][task])
+                output_dir = self.get_output_dir(agent, task)
+                os.makedirs(output_dir, exist_ok=True)
+                with open(os.path.join(output_dir, ""overall.json""), ""w"") as f:
+                    f.write(json.dumps(overall, indent=4, ensure_ascii=False))
+                return overall
+        except Exception as e:
+            print(ColorMessage.yellow(f""Warning: Failed to save partial results for {agent}/{task}: {str(e)}""))
+        return None",false,task in self.tasks and agent in self.completions and task in self.completions[agent],"not isinstance(value, str) and (not isinstance_name in _is",21
+397,"def do_Tm(
+        self,
+        a: PDFStackT,
+        b: PDFStackT,
+        c: PDFStackT,
+        d: PDFStackT,
+        e: PDFStackT,
+        f: PDFStackT,
+    ) -> None:
+        
+        values = (a, b, c, d, e, f)
+        matrix = safe_matrix(*values)
+
+        if <mask_if>:
+            log.warning(
+                f""Could not set text matrix because not all values in {values!r} can be parsed as floats""
+            )
+        else:
+            self.textstate.matrix = matrix
+            self.textstate.linematrix = (0, 0)",false,matrix is None,"not isinstance(value, str) and (not is None)) == 'name",17
+398,"def get_tool_metadata(tool_name_or_schema: str | ToolSchema) -> ToolMetadata:
+    
+    tool_name: str | None = (
+        tool_name_or_schema
+        if isinstance(tool_name_or_schema, str)
+        else tool_name_or_schema.get(""name"")
+    )
+
+    metadata = _tool_metadata.get(tool_name)
+
+    if <mask_if>:
+        raise ValueError(f""Tool {tool_name} not found in metadata."")
+
+    return metadata",false,metadata is None,"not isinstance(value, str) and (not isinstance_name in _is",0
+399,"def fetch_branches(owner: str, repo: str):
+        
+
+        response = requests.get(url, headers=headers)
+
+        if <mask_if>:
+            if not token:
+                print(f""Error 404: Repository not found or is private.\n""
+                      f""If this is a private repository, please provide a valid GitHub token via the 'token' argument or set the GITHUB_TOKEN environment variable."")
+            else:
+                print(f""Error 404: Repository not found or insufficient permissions with the provided token.\n""
+                      f""Please verify the repository exists and the token has access to this repository."")
+            return []
+            
+        if response.status_code != 200:
+            print(f""Error fetching the branches of {owner}/{repo}: {response.status_code} - {response.text}"")
+            return []
+
+        return response.json()",false,response.status_code == 404,"not isinstance(value, str) and (not isinstance_name in _get",0
+401,"def get_model(cls, base_id, task_type):
+        
+        if <mask_if>:
+            return cls.registry[""model_specific""][base_id]
+        elif task_type in cls.registry[""task_type""]:
+            return cls.registry[""task_type""][task_type]
+        else:
+            raise ValueError(f""No model class found for model '{base_id}' or task type '{task_type}'"")",false,"base_id in cls.registry[""model_specific""]","not isinstance(value, str) and (not isinstance_name in _get",18
+403,"def _compile_dependencies():
+    
+    if <mask_if>:
+        start_time = time.time()
+        logger.info(""> Compiling dataset index builder..."")
+        try:
+            from core.datasets.utils import compile_helpers
+            compile_helpers()
+            logger.info(
+                f"">>> Done with dataset index builder. Compilation time: {time.time() - start_time:.3f} seconds""
+            )
+        except Exception as e:
+            logger.error(f""Failed to compile helpers: {e}"")
+            raise",false,torch.distributed.get_rank() == 0,"not isinstance(value, str) and (not isinstance_name in _get",0
+404,"def crawl(self) -> List[Dict]:
+        
+        to_visit = [self.base_url]
+        results = []
+        
+        while to_visit and len(self.visited) < self.max_pages:
+            url = to_visit.pop(0)
+            
+            if <mask_if>:
+                continue
+                
+            print(f""Crawling: {url}"")
+            content = self.extract_page_content(url)
+            
+            if content:
+                self.visited.add(url)
+                results.append(content)
+                
+                # Add new URLs to visit
+                new_urls = [url for url in content[""links""] 
+                          if url not in self.visited 
+                          and url not in to_visit]
+                to_visit.extend(new_urls)
+        
+        return results",false,url in self.visited,"not isinstance(value, str) and (not isinstance_name in _get",18
+405,"def clean_response(cls, content: str) -> Dict[str, Any]:
+        
+        cleaned = re.sub(r""```(?:json)?\s*"", """", content).strip()
+        match = re.search(r""(\{.*\})"", cleaned, re.S)
+        if <mask_if>:
+            return {}
+        return json.loads(match.group(1))",false,not match,"not isinstance(value, str) and (not isinstance_name in _is",20
+406,"def replace_message_at(
+        self, index, text_content, image_content=None, image_detail=""high""
+    ):
+        
+        if <mask_if>:
+            self.messages[index] = {
+                ""role"": self.messages[index][""role""],
+                ""content"": [{""type"": ""text"", ""text"": text_content}],
+            }
+            if image_content:
+                base64_image = self.encode_image(image_content)
+                self.messages[index][""content""].append(
+                    {
+                        ""type"": ""image_url"",
+                        ""image_url"": {
+                            ""url"": f""data:image/png;base64,{base64_image}"",
+                            ""detail"": image_detail,
+                        },
+                    }
+                )",false,index < len(self.messages),"not isinstance(value, str) and (not isinstance_name in _is",0
+407,"def _make_output(
+        self,
+        file_content: str,
+        file_descriptor: str,
+        init_line: int = 1,
+        expand_tabs: bool = True,
+    ) -> str:
+        
+        file_content = maybe_truncate(file_content)
+        if <mask_if>:
+            file_content = file_content.expandtabs()
+        file_content = ""\n"".join(
+            [f""{i + init_line:6}\t{line}"" for i, line in enumerate(file_content.split(""\n""))]
+        )
+        return (
+            f""Here's the result of running `cat -n` on {file_descriptor}:\n"" + file_content + ""\n""
+        )",false,expand_tabs,"not isinstance(x, str) and (not isinstance_name in ['1",0
+408,"def get_transcript_object(self) -> aai.Transcript:
+        
+        logger.info(""Starting video transcription"")
+        transcript = self.transcriber.transcribe(self.video_path)
+        if <mask_if>:
+            logger.error(f""Transcription failed: {transcript.error}"")
+            raise ValueError(f""Transcription failed: {transcript.error}"")
+        if not transcript.words:
+            logger.warning(""No words found in transcript"")
+        logger.info(""Transcription completed successfully!"")
+
+        return transcript",false,"transcript.status == ""error""",not os.path.exists(path) and (not 'path.path,0
+409,"def update_status(self, agent_name: str, ticker: Optional[str] = None, status: str = """", analysis: Optional[str] = None):
+        
+        if <mask_if>:
+            self.agent_status[agent_name] = {""status"": """", ""ticker"": None}
+
+        if ticker:
+            self.agent_status[agent_name][""ticker""] = ticker
+        if status:
+            self.agent_status[agent_name][""status""] = status
+        if analysis:
+            self.agent_status[agent_name][""analysis""] = analysis
+        
+        # Set the timestamp as UTC datetime
+        timestamp = datetime.now(timezone.utc).isoformat()
+        self.agent_status[agent_name][""timestamp""] = timestamp
+
+        # Notify all registered handlers
+        for handler in self.update_handlers:
+            handler(agent_name, ticker, status, analysis, timestamp)
+
+        self._refresh_display()",false,agent_name not in self.agent_status,"not isinstance(value, str) and (not is not None)) == '",14
+411,"def register_mimetype_component_type(mimetype: str, component_type: Optional[str] = None):
+    
+    if <mask_if>:
+        logger.warning(f""[registry] Suspicious mimetype format: {mimetype}"")
+    _mimetype_to_component_type[mimetype] = component_type or ""generic""",false,"not re.match(r""^[^/]+/[^/]+$"", mimetype)","not isinstance(value, str) and (not isinstance_name in _is",18
+417,"def is_unsubscribe_allowed(
+    mcp: FastMCP, sns_client: Any, kwargs: Dict[str, Any]
+) -> Tuple[bool, str]:
+    
+    subscription_arn = kwargs.get('SubscriptionArn')
+
+    if <mask_if>:
+        return False, 'SubscriptionArn is not passed to the tool'
+
+    try:
+        # Get subscription attributes to find the TopicArn
+        attributes = sns_client.get_subscription_attributes(SubscriptionArn=subscription_arn)
+        topic_arn = attributes.get('Attributes', {}).get('TopicArn')
+
+        return is_mutative_action_allowed(mcp, sns_client, {'TopicArn': topic_arn})
+
+    except Exception as e:
+        return False, str(e)",false,subscription_arn is None or subscription_arn == '',"not isinstance(value, str) and (not isinstance_name in _is",0
+421,"def process_llm_request(self, llm_request: LlmRequest) -> None:
+    
+    if <mask_if>:
+      llm_request.config = llm_request.config or types.GenerateContentConfig()
+      llm_request.config.tools = llm_request.config.tools or []
+      llm_request.config.tools.append(
+          types.Tool(code_execution=types.ToolCodeExecution())
+      )
+      return
+    raise ValueError(
+        ""Gemini code execution tool is not supported for model""
+        f"" {llm_request.model}""
+    )",false,"llm_request.model and llm_request.model.startswith(""gemini-2"")","not isinstance(value, str) and (not isinstance_name in ('.",18
+422,"def _megatron_calc_global_rank(tp_rank: int = 0, dp_rank: int = 0, pp_rank: int = 0):
+    
+
+    args = get_args()
+    tp_size = mpu.get_tensor_model_parallel_world_size()
+    dp_size = mpu.get_data_parallel_world_size()
+    pp_size = mpu.get_pipeline_model_parallel_world_size()
+    assert (tp_size * dp_size * pp_size == torch.distributed.get_world_size()
+           ), f""{tp_size} x {dp_size} x {pp_size} != {torch.distributed.get_world_size()}""
+    if <mask_if>:
+        # TP-PP-DP grouping
+        return (dp_rank * pp_size + pp_rank) * tp_size + tp_rank
+    else:
+        # TP-DP-PP grouping
+        return (pp_rank * dp_size + dp_rank) * tp_size + tp_rank",false,args.switch_dp_and_pp_grouping,"not isinstance(x, str) and (not isinstance_name in ['1",0
+423,"def infer_transport_type_from_url(
+    url: str | AnyUrl,
+) -> Literal[""streamable-http"", ""sse""]:
+    
+    url = str(url)
+    if <mask_if>:
+        raise ValueError(f""Invalid URL: {url}"")
+
+    parsed_url = urlparse(url)
+    path = parsed_url.path
+
+    if ""/sse/"" in path or path.rstrip(""/"").endswith(""/sse""):
+        return ""sse""
+    else:
+        return ""streamable-http""",false,"not url.startswith(""http"")","not isinstance(value, str) and (not isinstance_name in _is",20
+426,"def log_trainable_parameters(model: torch.nn.Module, logger: Optional[Logger] = None):
+    
+    trainable_params = 0
+    all_param = 0
+    for name, param in model.named_parameters():
+        all_param += param.numel()
+        if <mask_if>:
+            (logger or get_logger(__name__)).info(f""training with {name}"")
+            trainable_params += param.numel()
+
+    (logger or get_logger(__name__)).info(
+        ""trainable params: %s || all params: %s || trainable%%: %s"",
+        f""{trainable_params:,}"",
+        f""{all_param:,}"",
+        f""{trainable_params / all_param:.2%}"",
+    )",false,param.requires_grad,"not isinstance(value, str) and (not isinstance_name in _is",0
+429,"def _get_user_query(self, task_send_params: TaskSendParams) -> str | None:
+        
+        if <mask_if>:
+            logger.warning(f""No message parts found for task {task_send_params.id}"")
+            return None
+        for part in task_send_params.message.parts:
+            # Ensure part is treated as a dictionary if it came from JSON
+            part_dict = part if isinstance(part, dict) else part.model_dump()
+            if part_dict.get(""type"") == ""text"" and ""text"" in part_dict:
+                 return part_dict[""text""]
+        logger.warning(f""No text part found in message for task {task_send_params.id}"")
+        return None",false,not task_send_params.message or not task_send_params.message.parts,not os.path.exists(path) and (not isinstance(path.,20
+430,"def calculate_cost(input_tokens: int, output_tokens: int, model_id: str) -> float:
+    
+    if <mask_if>:
+        input_cost_per_k, output_cost_per_k = PRICES_PER_K_TOKENS[model_id]
+        input_cost = (input_tokens / 1000) * input_cost_per_k
+        output_cost = (output_tokens / 1000) * output_cost_per_k
+        return input_cost + output_cost
+    else:
+        warnings.warn(
+            f'Cannot get the costs for {model_id}. The cost will be 0. In your config_list, add field {{""price"" : [prompt_price_per_1k, completion_token_price_per_1k]}} for customized pricing.',
+            UserWarning,
+        )
+        return 0",false,model_id in PRICES_PER_K_TOKENS,"not isinstance(value, str) and (not isinstance_name in _is",18
+431,"def get_step_footnote_content(step_log: ActionStep | PlanningStep, step_name: str) -> str:
+    
+    step_footnote = f""**{step_name}**""
+    if <mask_if>:
+        step_footnote += f"" | Input tokens: {step_log.token_usage.input_tokens:,} | Output tokens: {step_log.token_usage.output_tokens:,}""
+    step_footnote += f"" | Duration: {round(float(step_log.timing.duration), 2)}s"" if step_log.timing.duration else """"
+    step_footnote_content = f
+    return step_footnote_content",false,step_log.token_usage is not None,"not isinstance(value, str) and (not isinstance_name in _is",17
+432,"def _cancel_interruptible_tasks(self) -> None:
+		
+		current_task = asyncio.current_task(self.loop)
+		for task in asyncio.all_tasks(self.loop):
+			if task != current_task and not task.done():
+				task_name = task.get_name() if hasattr(task, 'get_name') else str(task)
+				# Cancel tasks that match certain patterns
+				if any(pattern in task_name for pattern in self.interruptible_task_patterns):
+					logger.debug(f'Cancelling task: {task_name}')
+					task.cancel()
+					# Add exception handler to silence ""Task exception was never retrieved"" warnings
+					task.add_done_callback(lambda t: t.exception() if t.cancelled() else None)
+
+		# Also cancel the current task if it's interruptible
+		if <mask_if>:
+			task_name = current_task.get_name() if hasattr(current_task, 'get_name') else str(current_task)
+			if any(pattern in task_name for pattern in self.interruptible_task_patterns):
+				logger.debug(f'Cancelling current task: {task_name}')
+				current_task.cancel()",false,current_task and not current_task.done(),not os.path.exists(path) and (not 'path.path,44
+433,"def compare_hashes_gcs(blob, local_file_path: str) -> bool:
+    
+    if <mask_if>:
+        remote_md5_base64 = blob.md5_hash
+        hash_md5 = hashlib.md5()
+        with open(local_file_path, ""rb"") as f:
+            for chunk in iter(lambda: f.read(8192), b""""):
+                hash_md5.update(chunk)
+        local_md5 = hash_md5.digest()
+        remote_md5 = base64.b64decode(remote_md5_base64)
+        if remote_md5 == local_md5:
+            logger.info(f""File '{local_file_path}' already up-to-date. Skipping download."")
+            return False
+        else:
+            logger.info(f""File '{local_file_path}' differs from GCS. Downloading."")
+            return True
+    else:
+        logger.info(f""File '{local_file_path}' does not exist locally. Downloading."")
+        return True",false,os.path.exists(local_file_path),"not isinstance(value, str) and (not isinstance_name in _is",0
+438,"def __str__(self) -> str:
+        
+        info = """"
+        info += ""Audio Extraction Task:\n""
+
+        if <mask_if>:
+            info += ""  auth_token: [redacted]\n""
+        if self._grpc_endpoint:
+            info += f""  grpc_endpoint: {self._grpc_endpoint}\n""
+        if self._infer_protocol:
+            info += f""  infer_protocol: {self._infer_protocol}\n""
+        if self._function_id:
+            info += ""  function_id: [redacted]\n""
+        if self._use_ssl:
+            info += f""  use_ssl: {self._use_ssl}\n""
+        if self._ssl_cert:
+            info += ""  ssl_cert: [redacted]\n""
+
+        return info",false,self._auth_token,not os.path.exists(path) and (not 'path.path,0
+440,"def trim_voice_tensor(tensor):
+    
+    if <mask_if>:
+        raise ValueError(f""Expected tensor with first dimension 511, got {tensor.shape[0]}"")
+    
+    # Analyze variance contribution of each row
+    variance = analyze_voice_content(tensor)
+    
+    # Determine which end has lower variance (less information)
+    start_var = variance[:5].mean().item()
+    end_var = variance[-5:].mean().item()
+    
+    # Remove from the end with lower variance
+    if end_var < start_var:
+        logger.info(""Trimming last row (lower variance at end)"")
+        return tensor[:-1]
+    else:
+        logger.info(""Trimming first row (lower variance at start)"")
+        return tensor[1:]",false,tensor.shape[0] != 511,"not isinstance(value, str) and (not isinstance_name in _is",0
+441,"def clear_all(cls, cache_dir: Path | None = None) -> None:
+        
+        cache_dir = cache_dir or default_cache_dir()
+        if <mask_if>:
+            return
+
+        file_types: list[Literal[""client_info"", ""tokens""]] = [""client_info"", ""tokens""]
+        for file_type in file_types:
+            for file in cache_dir.glob(f""*_{file_type}.json""):
+                file.unlink(missing_ok=True)
+        logger.info(""Cleared all OAuth client cache data."")",false,not cache_dir.exists(),"not isinstance(value, str) and (not isinstance_name in _is",20
+444,"def convert_to_regular_types(obj):
+    
+    from omegaconf import ListConfig, DictConfig
+    if <mask_if>:
+        return {k: convert_to_regular_types(v) for k, v in obj.items()} if isinstance(obj, DictConfig) else list(obj)
+    elif isinstance(obj, (list, tuple)):
+        return [convert_to_regular_types(x) for x in obj]
+    elif isinstance(obj, dict):
+        return {k: convert_to_regular_types(v) for k, v in obj.items()}
+    return obj",false,"isinstance(obj, (ListConfig, DictConfig))","not isinstance(value, str) and (not isinstance_name in _is",0
+447,"def load_environment():
+    
+    try:
+        # Read and execute set_keys.sh
+        with open('set_keys.sh', 'r') as f:
+            lines = f.readlines()
+        
+        for line in lines:
+            line = line.strip()
+            if <mask_if>:
+                # Parse export statements
+                line = line.replace('export ', '')
+                key, value = line.split('=', 1)
+                # Remove quotes if present
+                value = value.strip('""').strip(""'"")
+                os.environ[key] = value
+                print(f""Loaded: {key}"")
+        
+        print(""Environment variables loaded successfully"")
+    except Exception as e:
+        print(f""Error loading environment: {e}"")",false,line.startswith('export ') and '=' in line,"not isinstance(value, str) and (not isinstance_name in _is",29
+448,"def _run(self, **kwargs) -> str:
+        
+        servers = self.server_manager.client.get_server_names()
+        if <mask_if>:
+            return ""No MCP servers are currently defined.""
+
+        result = ""Available MCP servers:\n""
+        for i, server_name in enumerate(servers):
+            active_marker = "" (ACTIVE)"" if server_name == self.server_manager.active_server else """"
+            result += f""{i + 1}. {server_name}{active_marker}\n""
+
+            tools: list = []
+            try:
+                # Check cache first
+                if server_name in self.server_manager._server_tools:
+                    tools = self.server_manager._server_tools[server_name]
+                    tool_count = len(tools)
+                    result += f""   {tool_count} tools available for this server\n""
+            except Exception as e:
+                logger.error(f""Unexpected error listing tools for server '{server_name}': {e}"")
+
+        return result",false,not servers,"not isinstance(value, str) and (not isinstance_name in _get",20
+450,"def update_presigned_url(presigned_url, base_url):
+    
+    #To Do: If Proxy URL has domain name how do we handle such cases? Engineering Dependency.
+    
+    presigned_parts = urlparse(presigned_url)
+    base_parts = urlparse(base_url)
+    # Check if base_url contains localhost or an IP address
+    if <mask_if>:
+        new_netloc = base_parts.hostname  # Extract domain from base_url
+        if base_parts.port:  # Add port if present in base_url
+            new_netloc += f"":{base_parts.port}""
+        updated_parts = presigned_parts._replace(netloc=new_netloc)
+        return urlunparse(updated_parts)
+    return presigned_url",false,"re.match(r'^(localhost|\d{1,3}(\.\d{1,3}){3})$', base_parts.hostname)","not isinstance(value, str) and (not isinstance_name in _is",0
+453,"def get_aws_session(region_name=None):
+    
+    profile_name = os.environ.get('AWS_PROFILE')
+    region = region_name or get_region()
+
+    if <mask_if>:
+        logger.debug(f'Using AWS profile: {profile_name}')
+        return boto3.Session(profile_name=profile_name, region_name=region)
+    else:
+        logger.debug('Using default AWS credential chain')
+        return boto3.Session(region_name=region)",false,profile_name,"not isinstance(value, str) and (not isinstance_name in _is",0
+454,"def handle_phue_error(
+    light_or_group: str, operation: str, error: Exception
+) -> dict[str, Any]:
+    
+    base_info = {""target"": light_or_group, ""operation"": operation, ""success"": False}
+    if <mask_if>:
+        base_info[""error""] = f""Target '{light_or_group}' not found""
+    elif isinstance(error, PhueException):
+        base_info[""error""] = f""phue2 error during {operation}: {error}""
+    else:
+        base_info[""error""] = f""Unexpected error during {operation}: {error}""
+    return base_info",false,"isinstance(error, KeyError)","not isinstance(value, str) and (not isinstance_name in _is",0
+456,"def to_dict(self) -> Dict:
+        
+        task_properties = {}
+
+        if <mask_if>:
+            task_properties[""api_key""] = self._api_key
+
+        if self._endpoint_url:
+            task_properties[""endpoint_url""] = self._endpoint_url
+
+        if self._prompt:
+            task_properties[""prompt""] = self._prompt
+
+        if self._model_name:
+            task_properties[""model_name""] = self._model_name
+
+        return {""type"": ""caption"", ""task_properties"": task_properties}",false,self._api_key,not os.path.exists(path) and (not 'path.path,0
+457,"def _exists(file_path: str):
+    
+    if <mask_if>:
+        return _run_cmd(_hdfs_cmd(f""-test -e {file_path}"")) == 0
+    return os.path.exists(file_path)",false,"file_path.startswith(""hdfs"")","not isinstance(value, str) and (not isinstance_name in _is",0
+461,"def language_token(self) -> int:
+        
+        if <mask_if>:
+            raise ValueError(f""This tokenizer does not have language token configured"")
+
+        additional_tokens = dict(
+            zip(
+                self.tokenizer.additional_special_tokens,
+                self.tokenizer.additional_special_tokens_ids,
+            )
+        )
+        candidate = f""<|{self.language}|>""
+        if candidate in additional_tokens:
+            return additional_tokens[candidate]
+
+        raise KeyError(f""Language {self.language} not found in tokenizer."")",false,self.language is None,"not isinstance(value, str) and (not isinstance_name in _is",0
+462,"def _format_search_results_as_context(self, search_results):
+        
+        context_snippets = []
+
+        for i, result in enumerate(
+            search_results[:10]
+        ):  # Limit to prevent context overflow
+            title = result.get(""title"", ""Untitled"")
+            snippet = result.get(""snippet"", """")
+            url = result.get(""link"", """")
+
+            if <mask_if>:
+                context_snippets.append(
+                    f""Source {i + 1}: {title}\nURL: {url}\nSnippet: {snippet}""
+                )
+
+        return ""\n\n"".join(context_snippets)",false,snippet,"not isinstance(value, str) and (not isinstance_name in _get",0
+464,"def create_html_redline(text1: str, text2: str) -> str:
+    
+    d = dmp.diff_match_patch()
+    diffs = d.diff_main(text2, text1)
+    d.diff_cleanupSemantic(diffs)
+
+    html_output = """"
+    for op, text in diffs:
+        if <mask_if>:  # Deletion
+            html_output += (
+                f'<del style=""background-color: #ffcccc;"">{text}</del>'
+            )
+        elif op == 1:  # Insertion
+            html_output += (
+                f'<ins style=""background-color: #ccffcc;"">{text}</ins>'
+            )
+        else:  # Unchanged
+            html_output += text
+
+    return html_output",false,op == -1,"not isinstance(value, str) and (not isinstance_name in _is",0
+465,"def __init__(self, config, actor_module: nn.Module, actor_optimizer: torch.optim.Optimizer = None):
+        
+        super().__init__(config)
+        self.actor_module = actor_module
+        self.actor_optimizer = actor_optimizer
+
+        self.use_remove_padding = self.config.get(""use_remove_padding"", False)
+        if <mask_if>:
+            print(f""Actor use_remove_padding={self.use_remove_padding}"")
+        self.use_fused_kernels = self.config.get(""use_fused_kernels"", False)
+        if torch.distributed.get_rank() == 0:
+            print(f""Actor use_fused_kernels={self.use_fused_kernels}"")
+
+        self.ulysses_sequence_parallel_size = self.config.ulysses_sequence_parallel_size
+        self.use_ulysses_sp = self.ulysses_sequence_parallel_size > 1
+
+        self.compute_entropy_from_logits = (
+            torch.compile(verl_F.entropy_from_logits, dynamic=True)
+            if self.config.get(""use_torch_compile"", True)  #  use torch compile by default
+            else verl_F.entropy_from_logits
+        )
+        self.device_name = get_device_name()",false,torch.distributed.get_rank() == 0,not os.path.exists(path) and (not is not None),0
+468,"def collate_fn(data_list: list[dict]) -> dict:
+    
+    tensors = defaultdict(list)
+    non_tensors = defaultdict(list)
+
+    for data in data_list:
+        for key, val in data.items():
+            if <mask_if>:
+                tensors[key].append(val)
+            else:
+                non_tensors[key].append(val)
+
+    for key, val in tensors.items():
+        tensors[key] = torch.stack(val, dim=0)
+
+    for key, val in non_tensors.items():
+        non_tensors[key] = np.array(val, dtype=object)
+
+    return {**tensors, **non_tensors}",false,"isinstance(val, torch.Tensor)","not isinstance(value, str) and (not isinstance_name in _is",0
+470,"def format_category(
+        self, category: RouterCategory, index: int | None = None
+    ) -> str:
+        
+
+        index_str = f""{index}. "" if index is not None else "" ""
+        category_str = """"
+
+        if <mask_if>:
+            category_str = self._format_server_category(category)
+        elif isinstance(category, AgentRouterCategory):
+            category_str = self._format_agent_category(category)
+        else:
+            category_str = self._format_function_category(category)
+
+        return f""{index_str}{category_str}""",false,"isinstance(category, ServerRouterCategory)","not isinstance(value, str) and (not isinstance_name in _is",0
+474,"def add_prompt(self, prompt: Prompt, key: str | None = None) -> Prompt:
+        
+        key = key or prompt.name
+
+        # Check for duplicates
+        existing = self._prompts.get(key)
+        if <mask_if>:
+            if self.duplicate_behavior == ""warn"":
+                logger.warning(f""Prompt already exists: {key}"")
+                self._prompts[key] = prompt
+            elif self.duplicate_behavior == ""replace"":
+                self._prompts[key] = prompt
+            elif self.duplicate_behavior == ""error"":
+                raise ValueError(f""Prompt already exists: {key}"")
+            elif self.duplicate_behavior == ""ignore"":
+                return existing
+        else:
+            self._prompts[key] = prompt
+        return prompt",false,existing,"not isinstance(value, str) and (not is not None)) == '",0
+475,"def database_setup_and_cleanup(db_session: Session) -> Generator[None, None, None]:
+    
+
+    inspector = cast(Inspector, inspect(db_session.bind))
+
+    # Check if all tables defined in models are created in the db
+    for table in Base.metadata.tables.values():
+        if <mask_if>:
+            pytest.exit(f""Table {table} does not exist in the database."")
+
+    clear_database(db_session)
+    yield  # This allows the test to run
+    clear_database(db_session)",false,not inspector.has_table(table.name),"not isinstance(value, str) and (not isinstance_name in _is",20
+478,"def decode_unicode_escapes_to_utf8(text: str) -> str:
+	
+
+	if <mask_if>:
+		# doesn't have any escape sequences that need to be decoded
+		return text
+
+	try:
+		# Try to decode Unicode escape sequences
+		return text.encode('latin1').decode('unicode_escape')
+	except (UnicodeEncodeError, UnicodeDecodeError):
+		# logger.debug(f""Failed to decode unicode escape sequences while generating gif text: {text}"")
+		return text",false,r'\u' not in text,not os.path.exists(path) and (not 'path.path,22
+479,"def check_prime(nums: list[int]) -> str:
+  
+  primes = set()
+  for number in nums:
+    number = int(number)
+    if <mask_if>:
+      continue
+    is_prime = True
+    for i in range(2, int(number**0.5) + 1):
+      if number % i == 0:
+        is_prime = False
+        break
+    if is_prime:
+      primes.add(number)
+  return (
+      ""No prime numbers found.""
+      if not primes
+      else f""{', '.join(str(num) for num in primes)} are prime numbers.""
+  )",false,number <= 1,"not isinstance(value, str) and (not isinstance_name in ['1",0
+480,"def worker_task(thread_id, args):
+    
+    for i in range(args.iterations):
+        iteration = i + 1
+        test_id = f""{thread_id:02d}_{iteration:02d}""
+        text = generate_test_sentence(thread_id, iteration)
+        success = request_tts(
+            args.url, test_id, text, args.voice, args.output_dir, args.debug
+        )
+
+        if <mask_if>:
+            log_message(
+                f""Thread {thread_id}: Iteration {iteration} failed"",
+                args.debug,
+                is_error=True,
+            )
+
+        # Small delay between iterations to avoid overwhelming the API
+        time.sleep(0.1)",false,not success,"not isinstance(x, str) and (not isinstance_name in ['1",20
+481,"def _annotate_span_for_generation_message(
+        self,
+        span: trace.Span,
+        message: MessageParamT | str | List[MessageParamT],
+    ) -> None:
+        
+        if <mask_if>:
+            return
+        if isinstance(message, str):
+            span.set_attribute(""message.content"", message)
+        elif isinstance(message, list):
+            for i, msg in enumerate(message):
+                if isinstance(msg, str):
+                    span.set_attribute(f""message.{i}.content"", msg)
+                else:
+                    span.set_attribute(f""message.{i}"", str(msg))
+        else:
+            span.set_attribute(""message"", str(message))",false,not self.context.tracing_enabled,"not isinstance(value, str) and (not isinstance_name in _is",20
+484,"def __str__(self) -> str:
+        
+        base = f""{self.action.ljust(11)}. {self.target}""
+        if <mask_if>:
+            base += f"" - {self.details}""
+        if self.agent_name:
+            base = f""[{self.agent_name}] {base}""
+        return base",false,self.details,not os.path.exists(path) and (not isinstance(path.,0
+486,"def normalize_model_name(name, pp_rank, vpp_rank, transformer_config, layer_name=""layers""):
+    
+    from verl.utils.megatron_utils import get_transformer_layer_offset
+
+    layer_offset = get_transformer_layer_offset(pp_rank, vpp_rank, transformer_config)
+
+    if <mask_if>:  # belong to an intermediate layer
+        split_name = name.split(""."")
+        # find the num next to split_name
+        for i, name in enumerate(split_name):
+            if name == layer_name:
+                break
+        layer_num_idx = i + 1
+        # check the name
+        assert len(split_name) >= layer_num_idx + 1, f""split_name = {split_name}""
+        assert split_name[layer_num_idx].isdigit(), f""split_name = {split_name}""
+        # increment layer_num_idx by layer_offset
+        split_name[layer_num_idx] = str(int(split_name[layer_num_idx]) + layer_offset)
+        name = ""."".join(split_name)  # weight name in inference_tp_model
+    return name",false,layer_name in name,"not isinstance(value, str) and (not isinstance_name in _is",18
+487,"def interpreter_feedback(self, output:str) -> str:
+        
+        if <mask_if>:
+            feedback = f""[failure] Error in execution:\n{output}""
+        else:
+            feedback = ""[success] Execution success, code output:\n"" + output
+        return feedback",false,self.execution_failure_check(output),"not isinstance(value, str) and (not isinstance_name in _get",0
+488,"def __repr__(self) -> str:
+        
+        output_str = f""sub question: {self.sub_question}""
+        if <mask_if>:
+            output_str += f""\nretrieved chunks:\n{self.chunks}""
+        if self.spo:
+            output_str += f""\nretrieved spo:\n{self.spo}""
+        if self.summary:
+            output_str += f""\nsummary:\n{self.summary}""
+        return output_str",false,self.chunks,not os.path.exists(path) and (not os._path.,0
+489,"def setup_data_dir():
+    
+    # Get the project root directory (3 levels up from this file)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.abspath(os.path.join(current_dir, "".."", ""..""))
+
+    # Define the data directory path
+    data_dir = os.path.join(project_root, ""data"")
+
+    # Create the data directory if it doesn't exist
+    if <mask_if>:
+        os.makedirs(data_dir)
+        print(f""Created data directory at: {data_dir}"")
+    else:
+        print(f""Data directory already exists at: {data_dir}"")
+
+    # Return the path to the data directory
+    return data_dir",false,not os.path.exists(data_dir),"not isinstance(value, str) and (not isinstance_name in _is",20
+491,"def create_empty_state(
+    agent: BaseAgent, initialized_states: Optional[dict[str, Any]] = None
+) -> dict[str, Any]:
+  
+  non_initialized_states = {}
+  _create_empty_state(agent, non_initialized_states)
+  for key in initialized_states or {}:
+    if <mask_if>:
+      del non_initialized_states[key]
+  return non_initialized_states",false,key in non_initialized_states,"not isinstance(value, str) and (not isinstance_name in _is",18
+492,"def _display_quality_summary(self, metrics: Dict[str, Any]):
+        
+        overall_score = metrics.get(""overall_score"", 0)
+        issues = metrics.get(""issues"", [])
+
+        # Use formatter for consistent display
+        quality_display = self.formatter.format_quality_score(overall_score, issues)
+        self.console.print(f""[dim]{quality_display}[/dim]"")
+
+        # Highlight specific test concerns
+        if <mask_if>:
+            self.console.print(
+                ""  [yellow]⚠ Test detected premature answer attempt[/yellow]""
+            )
+
+        verbosity = metrics.get(""verbosity"", 0)
+        if verbosity > 0.7:
+            self.console.print(
+                f""  [yellow]⚠ High verbosity detected ({verbosity:.0%})[/yellow]""
+            )",false,"metrics.get(""premature_attempt"")","not isinstance(value, str) and (not isinstance_name in _is",0
+496,"def get_markdown(research_id):
+    
+    conn = get_db_connection()
+    conn.row_factory = lambda cursor, row: {
+        column[0]: row[idx] for idx, column in enumerate(cursor.description)
+    }
+    cursor = conn.cursor()
+    cursor.execute(""SELECT * FROM research_history WHERE id = ?"", (research_id,))
+    result = cursor.fetchone()
+    conn.close()
+
+    if <mask_if>:
+        return jsonify({""status"": ""error"", ""message"": ""Report not found""}), 404
+
+    try:
+        with open(result[""report_path""], ""r"", encoding=""utf-8"") as f:
+            content = f.read()
+        return jsonify({""status"": ""success"", ""content"": content})
+    except Exception as e:
+        return jsonify({""status"": ""error"", ""message"": str(e)}), 500",false,"not result or not result.get(""report_path"")","not isinstance(value, str) and (not isinstance_name in _is",15
+498,"def connect(self) -> bool:
+        
+        if <mask_if>:
+            return True
+            
+        try:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.connect((self.host, self.port))
+            logger.info(f""Connected to Blender at {self.host}:{self.port}"")
+            return True
+        except Exception as e:
+            logger.error(f""Failed to connect to Blender: {str(e)}"")
+            self.sock = None
+            return False",false,self.sock,not os.path.exists(path) and (not is not None),0
+499,"def append_dims(x, target_dims):
+    
+    dims_to_append = target_dims - x.ndim
+    if <mask_if>:
+        raise ValueError(f""input has {x.ndim} dims but target_dims is {target_dims}, which is less"")
+    return x[(...,) + (None,) * dims_to_append]",false,dims_to_append < 0,"not isinstance(value, str) and (not isinstance_name in _is",0
+500,"def api_delete_resource(research_id, resource_id):
+    
+    try:
+        # Delete the resource
+        success = delete_resource(resource_id)
+
+        if <mask_if>:
+            return jsonify(
+                {""status"": ""success"", ""message"": ""Resource deleted successfully""}
+            )
+        else:
+            return jsonify({""status"": ""error"", ""message"": ""Resource not found""}), 404
+    except Exception as e:
+        logger.error(f""Error deleting resource: {str(e)}"")
+        return jsonify({""status"": ""error"", ""message"": str(e)}), 500",false,success,"not isinstance(value, str) and (not isinstance_name in _is",0
